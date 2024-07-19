@@ -2,7 +2,17 @@ import React from 'react'
 
 function AdminNiveles() {
   return (
-    <div>AdminNiveles</div>
+    <div>
+
+      <div>
+        <h1 id='titulo'>Administrar Niveles</h1>
+      </div>
+
+      <div>
+
+      </div>
+
+    </div>
   )
 }
 

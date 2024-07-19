@@ -2,7 +2,17 @@ import React from 'react'
 
 function Niveles() {
   return (
-    <div>Niveles</div>
+    <div>
+
+      <div>
+        <h1 id='titulo'>Niveles</h1>
+      </div>
+
+      <div>
+
+      </div>
+
+    </div>
   )
 }
 

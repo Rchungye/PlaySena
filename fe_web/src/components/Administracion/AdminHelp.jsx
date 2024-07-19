@@ -1,19 +1,19 @@
 import React from 'react'
 
-function Ranking() {
+function AdminHelp() {
   return (
     <div>
 
       <div>
-        <h1 id='titulo'>Ranking</h1>
+        <h1 id='titulo'>Administrar Ayudas</h1>
       </div>
 
       <div>
-        
+
       </div>
 
     </div>
   )
 }
 
-export default Ranking
+export default AdminHelp

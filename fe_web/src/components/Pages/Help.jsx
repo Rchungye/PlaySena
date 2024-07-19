@@ -1,19 +1,19 @@
 import React from 'react'
 
-function Ranking() {
+function Help() {
   return (
     <div>
 
       <div>
-        <h1 id='titulo'>Ranking</h1>
+        <h1 id='titulo'>Ayuda</h1>
       </div>
 
       <div>
-        
+
       </div>
 
     </div>
   )
 }
 
-export default Ranking
+export default Help

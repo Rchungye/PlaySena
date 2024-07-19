@@ -2,7 +2,17 @@ import React from 'react'
 
 function AdminDesafios() {
   return (
-    <div>AdminDesafios</div>
+    <div>
+
+      <div>
+        <h1 id='titulo'>Administrar Desafios</h1>
+      </div>
+
+      <div>
+
+      </div>
+
+    </div>
   )
 }
 

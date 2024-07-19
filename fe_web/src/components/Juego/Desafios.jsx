@@ -2,7 +2,21 @@ import React from 'react'
 
 function Desafios() {
   return (
-    <div>Desafios</div>
+    <div>
+
+      <div>
+        <h1 id='titulo'>Desafios</h1>
+      </div>
+
+      <div>
+        
+      </div>
+
+      <div>
+        <button id='btnSiguiente'>Siguiente</button>
+      </div>
+
+    </div>
   )
 }
 
