@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 function NavBar() {
   return (
-    <div className="flex flex-col items-center space-y-4 p-4">
+    <nav className="h-screen w-64 bg-gray-800 text-white flex flex-col items-center space-y-4 p-4 border-r border-gray-200 overflow-y-auto fixed top-0 left-0 scrollbar-hide">
 
       <div className="w-full text-center">
         <h1 className="text-2xl font-bold mb-4">Jugador</h1>
@@ -57,7 +57,7 @@ function NavBar() {
           <button className="btn">Cerrar Sesión</button>
         </Link>
       </div>
-    </div>
+    </nav>
   );
 }
 
