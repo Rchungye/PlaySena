@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 
 // rutas de pagina
 import Ranking from '../components/Pages/Ranking';
@@ -25,10 +25,13 @@ import AdminOpciones from '../components/Administracion/AdminOpciones';
 import NavBar from '../components/NavBar';
 
 function GameNavegator() {
+  const location = useLocation();
+  const hideNavBarRoutes = ["/", "/registro"];
+
   return (
     <div className="flex">
-      <NavBar />
-      <div className="ml-64 p-4 flex-1 overflow-y-auto">
+      {!hideNavBarRoutes.includes(location.pathname) && <NavBar />}
+      <div className={`p-4 flex-1 overflow-y-auto ${!hideNavBarRoutes.includes(location.pathname) ? 'ml-64' : ''}`}>
         <Routes>
           {/* rutas de pagina */}
           <Route path="/ranking" element={<Ranking />} />

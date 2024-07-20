@@ -7,17 +7,28 @@ const FormLogIn = ({ className = "" }) => {
     email: "",
     password: "",
   });
+  const [error, setError] = useState(""); // Estado para manejar el mensaje de error
 
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+    setError(""); // Limpiar el error cuando se cambian los campos
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add login logic here (e.g., send data to a server)
+    
+    // Simulación de validación (aquí iría la lógica real de autenticación)
+    // Si la validación es exitosa
+    if (formData.email && formData.password) {
+      // Redirigir a la página de Etapas
+      navigate("/etapas");
+    } else {
+      // Establecer mensaje de error si hay campos vacíos
+      setError("Por favor, complete todos los campos.");
+    }
   };
 
   const handleRegisterClick = () => {
@@ -53,6 +64,7 @@ const FormLogIn = ({ className = "" }) => {
           />
         </div>
       </div>
+      {error && <div className="landing-page-form-error">{error}</div>} {/* Mostrar mensaje de error */}
       <button className="landing-page-form-button" type="submit">
         Iniciar sesión
       </button>
