@@ -127,12 +127,12 @@ html, body {
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: flex-start;
-  padding: 2rem;
+  padding: 1rem;
   box-sizing: border-box;
 }
 .landing-page-header-icon {
-  height: 35px;
-  width: 23px;
+  height: 70px;
+  width: 70px;
   position: relative;
 }
 
@@ -164,7 +164,7 @@ html, body {
 }
 
 .landing-page-footer-icon {
-  height: 2rem;
+  height: 3rem;
   width: auto;
 }
 

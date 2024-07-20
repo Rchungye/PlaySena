@@ -9,7 +9,7 @@ const Footer = ({ className = "" }) => {
             className="landing-page-footer-icon"
             loading="lazy"
             alt="Icon"
-            src="/icon.svg"
+            src="/src/assets/images//logo.png"
           />
         </div>
         <div className="landing-page-footer-socials">
@@ -17,25 +17,25 @@ const Footer = ({ className = "" }) => {
             className="landing-page-social-icon"
             loading="lazy"
             alt="X Logo"
-            src="/x-logo.svg"
+            src="/src/assets/images//x-logo.svg"
           />
           <img
             className="landing-page-social-icon"
             loading="lazy"
             alt="Instagram Logo"
-            src="/logo-instagram.svg"
+            src="/src/assets/images//logo-instagram.svg"
           />
           <img
             className="landing-page-social-icon"
             loading="lazy"
             alt="YouTube Logo"
-            src="/logo-youtube.svg"
+            src="/src/assets/images//logo-youtube.svg"
           />
           <img
             className="landing-page-social-icon"
             loading="lazy"
             alt="LinkedIn Logo"
-            src="/linkedin.svg"
+            src="/src/assets/images//linkedin.svg"
           />
         </div>
       </footer>
