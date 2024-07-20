@@ -131,8 +131,8 @@ html, body {
   box-sizing: border-box;
 }
 .landing-page-header-icon {
-  height: 70px;
-  width: 70px;
+  height: 60px;
+  width: auto;
   position: relative;
 }
 
@@ -148,14 +148,15 @@ html, body {
   padding: 1rem;
   box-sizing: border-box;
   display: flex;
-  justify-content: space-between;
+  justify-content: center; /* Center the content */
   align-items: center;
 }
 
 .landing-page-footer-content {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  justify-content: center; /* Center the content */
+  align-items: center;
+  width: 100%;
 }
 
 .landing-page-footer-icon-container {
@@ -164,18 +165,8 @@ html, body {
 }
 
 .landing-page-footer-icon {
-  height: 3rem;
+  height: 60px;
   width: auto;
-}
-
-.landing-page-footer-socials {
-  display: flex;
-  gap: 1rem;
-}
-
-.landing-page-social-icon {
-  height: 1.5rem;
-  width: 1.5rem;
 }
 
 .landing-page-footer-links {
