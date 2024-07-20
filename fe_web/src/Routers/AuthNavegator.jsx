@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 
 // // // rutas de pagina
 import Login from '../components/Pages/Login';
-import Register from '../components/Pages/Register';
+import Registro from '../components/Pages/Registro';
 
 function AuthNavegator() {
   return (
@@ -11,7 +11,7 @@ function AuthNavegator() {
       <Routes>
         {/* rutas de pagina */}
         <Route path="/" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/registro" element={<Registro />} />
       </Routes>
     </div>
   );

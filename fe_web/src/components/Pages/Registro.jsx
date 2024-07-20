@@ -1,8 +1,8 @@
 import Header from "../Header";
-import FormLogIn from "../FormLogIn";
+import RegisterForm from "../RegisterForm";
 import Footer from "../Footer";
 
-const Login = () => {
+const Registro = () => {
   return (
     <div className="landing-page-login-page">
       <Header className="landing-page-header" />
@@ -12,10 +12,12 @@ const Login = () => {
             <p className="m-0">Bienvenido a</p>
             <p className="m-0">PlaySeña</p>
           </h1>
-          <h1 className="landing-page-subtitle">Tu Lugar de Aprendizaje</h1>
+          <h1 className="landing-page-subtitle">
+            Tu Lugar de Aprendizaje
+          </h1>
         </section>
         <div className="landing-page-form-container">
-          <FormLogIn />
+          <RegisterForm className="landing-page-login-form" />
         </div>
       </main>
       <Footer className="landing-page-footer" />
@@ -23,4 +25,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Registro;
