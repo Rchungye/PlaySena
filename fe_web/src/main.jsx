@@ -11,5 +11,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <AuthNavegator />
       <GameNavagator />
     </BrowserRouter>
-  </React.StrictMode>,
+  </React.StrictMode>
 );
