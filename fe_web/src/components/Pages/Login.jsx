@@ -1,5 +1,5 @@
 import Header from "../Header";
-import FormLogIn from "../FormLogIn";
+import FormLogIn from "../LoginForm";
 import Footer from "../Footer";
 
 const Login = () => {
