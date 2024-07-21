@@ -228,6 +228,25 @@ html, body {
   box-sizing: border-box;
 }
 
+/* Adjust ranking main content to avoid clipping by header, footer, and navbar */
+.ranking-main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Center content vertically */
+  padding: 80px 0; /* Top and bottom padding to avoid clipping */
+  margin-left: 16rem; /* Space for navbar */
+  min-height: calc(100vh - 160px); /* Adjust based on header and footer height */
+  box-sizing: border-box;
+}
+
+/* Adjust etapas main content to avoid clipping by header, footer, and navbar */
+.etapas-main-content {
+  margin-top: 80px; /* Space for header */
+  margin-left: 16rem; /* Space for navbar */
+  padding-bottom: 80px; /* Space for footer */
+  box-sizing: border-box;
+}
 
 
 

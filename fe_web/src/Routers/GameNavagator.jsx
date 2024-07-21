@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 
+
 // rutas de pagina
 import Ranking from '../components/Pages/Ranking';
 import Profile from '../components/Pages/Profile';
@@ -23,6 +24,7 @@ import AdminDesafios from '../components/Administracion/AdminDesafios';
 import AdminOpciones from '../components/Administracion/AdminOpciones';
 
 import NavBar from '../components/NavBar';
+
 
 function GameNavegator() {
   const location = useLocation();

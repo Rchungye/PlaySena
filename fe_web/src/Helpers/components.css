@@ -1,0 +1,85 @@
+/* components.css */
+
+/* Header styles */
+.landing-page-header {
+    height: 80px; /* Fixed height */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50; /* Ensure it stays on top */
+    background: linear-gradient(90deg, #af52de, #30b0c7);
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+  .landing-page-header-icon {
+    height: 60px;
+    width: auto;
+    position: relative;
+  }
+  
+  /* Footer styles */
+  .landing-page-footer {
+    height: 80px; /* Fixed height */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 50; /* Ensure it stays on top */
+    background: rgb(184, 184, 184);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+  
+  .landing-page-footer-content {
+    display: flex;
+    justify-content: center; /* Center the content */
+    align-items: center;
+    width: 100%;
+  }
+  
+  .landing-page-footer-icon-container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .landing-page-footer-icon {
+    height: 60px;
+    width: auto;
+  }
+  
+  .landing-page-footer-links {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-right: 5rem; /* Adjust this value to move the links more to the left */
+  }
+  
+  .landing-page-footer-link {
+    font-weight: 600;
+  }
+  
+  /* Navbar styles */
+  .navbar {
+    width: 16rem; /* Fixed width */
+    background: #333; /* Background color */
+    color: #fff; /* Text color */
+    position: fixed;
+    top: 80px; /* Align below the header */
+    bottom: 80px; /* Align above the footer */
+    left: 0;
+    z-index: 40; /* Ensure it stays below the header */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    box-sizing: border-box;
+    overflow-y: auto; /* Allow scrolling if content overflows */
+  }
+  
