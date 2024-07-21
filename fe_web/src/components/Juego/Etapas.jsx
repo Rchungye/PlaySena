@@ -1,28 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { obtenerEtapasNiveles } from '../../services/Juego'; // Ajusta la ruta según tu estructura
 
 function Etapas() {
   const navigate = useNavigate();
-  const [etapasData, setEtapasData] = useState([]);
 
-  // Obtener las etapas y niveles desde la API
-  useEffect(() => {
-    const fetchEtapas = async () => {
-      try {
-        const response = await obtenerEtapasNiveles();
-        setEtapasData(response);
-      } catch (error) {
-        console.error("Error al obtener etapas:", error);
-      }
-    };
+  // Ejemplo de datos
+  const etapasData = [
+    {
+      nombre: 'Etapa 1',
+      descripcion: 'Descripción de la Etapa 1',
+      imagen: 'https://example.com/etapa1.jpg'
+    },
+    {
+      nombre: 'Etapa 2',
+      descripcion: 'Descripción de la Etapa 2',
+      imagen: 'https://example.com/etapa2.jpg'
+    },
+    // Añadir más etapas según sea necesario
+  ];
 
-    fetchEtapas();
-  }, []);
-
-  // Función para manejar el clic en una etapa
-  const handleClick = (idEtapa) => {
-    navigate(`/niveles/${idEtapa}`);
+  const handleClick = () => {
+    navigate('/niveles');
   };
 
   return (
@@ -32,14 +30,14 @@ function Etapas() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {etapasData.map((etapa) => (
+        {etapasData.map((etapa, index) => (
           <div
-            key={etapa.id_etapa}
+            key={index}
             className="border p-4 rounded shadow-md cursor-pointer"
-            onClick={() => handleClick(etapa.id_etapa)}
+            onClick={handleClick}
           >
             <img
-              src={etapa.imagen || 'https://via.placeholder.com/150'} // Usa una imagen por defecto si no hay imagen
+              src={etapa.imagen}
               alt={etapa.nombre}
               className="w-full h-48 object-cover mb-4 rounded"
             />
