@@ -3,59 +3,30 @@ import { Link } from 'react-router-dom';
 
 function NavBar() {
   return (
-    <nav className="h-screen w-64 bg-gray-800 text-white flex flex-col items-center space-y-4 p-4 border-r border-gray-200 overflow-y-auto fixed top-0 left-0 scrollbar-hide">
-
+    <nav className="navbar">
       <div className="w-full text-center">
         <h1 className="text-2xl font-bold mb-4">Jugador</h1>
       </div>
-
       <div className="flex flex-col space-y-2 w-full items-center">
-        <Link to={"/etapas"}>
-          <button className="btn">Etapas</button>
-        </Link>
-        <Link to={"/ranking"}>
-          <button className="btn">Clasificación</button>
-        </Link>
-        <Link to={"/profile"}>
-          <button className="btn">Perfil</button>
-        </Link>
-        <Link to={"/help"}>
-          <button className="btn">Ayuda</button>
-        </Link>
+        <Link to="/etapas"><button className="btn">Etapas</button></Link>
+        <Link to="/ranking"><button className="btn">Clasificación</button></Link>
+        <Link to="/profile"><button className="btn">Perfil</button></Link>
+        <Link to="/help"><button className="btn">Ayuda</button></Link>
       </div>
-
       <div className="w-full text-center mt-8">
         <h1 className="text-2xl font-bold mb-4">Administrador</h1>
       </div>
-
       <div className="flex flex-col space-y-2 w-full items-center">
-        <Link to={"/admin/etapas"}>
-          <button className="btn">Administrar Etapas</button>
-        </Link>
-        <Link to={"/admin/niveles"}>
-          <button className="btn">Administrar Niveles</button>
-        </Link>
-        <Link to={"/admin/lecciones"}>
-          <button className="btn">Administrar Lecciones</button>
-        </Link>
-        <Link to={"/admin/desafios"}>
-          <button className="btn">Administrar Desafíos</button>
-        </Link>
-        <Link to={"/admin/opciones"}>
-          <button className="btn">Administrar Opciones</button>
-        </Link>
-        <Link to={"/admin/users"}>
-          <button className="btn">Administrar Usuarios</button>
-        </Link>
-        <Link to={"/admin/help"}>
-          <button className="btn">Administrar Ayuda</button>
-        </Link>
+        <Link to="/admin/etapas"><button className="btn">Administrar Etapas</button></Link>
+        <Link to="/admin/niveles"><button className="btn">Administrar Niveles</button></Link>
+        <Link to="/admin/lecciones"><button className="btn">Administrar Lecciones</button></Link>
+        <Link to="/admin/desafios"><button className="btn">Administrar Desafíos</button></Link>
+        <Link to="/admin/opciones"><button className="btn">Administrar Opciones</button></Link>
+        <Link to="/admin/users"><button className="btn">Administrar Usuarios</button></Link>
+        <Link to="/admin/help"><button className="btn">Administrar Ayuda</button></Link>
       </div>
-
       <div className="w-full text-center mt-8">
-        <Link to="/">
-          <button className="btn">Cerrar Sesión</button>
-        </Link>
+        <Link to="/"><button className="btn">Cerrar Sesión</button></Link>
       </div>
     </nav>
   );
