@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import Header from '../Header';
+import Footer from '../Footer';
+import NavBar from '../NavBar';
 
 // Modal component
 const Modal = ({ isOpen, onClose, onSave }) => {
@@ -46,24 +49,28 @@ function Profile() {
   };
 
   return (
-    <div className="flex flex-col items-center p-4">
+    <div>
+      <Header className="landing-page-header" />
+      <NavBar className="navbar" />
+      <main className="profile-main-content flex flex-col items-center p-4">
+        <div className="text-center mb-4">
+          <h1 id="titulo" className="text-2xl font-bold">Perfil</h1>
+        </div>
 
-      <div className="w-full text-center mb-4">
-        <h1 id="titulo" className="text-2xl font-bold">Perfil</h1>
-      </div>
+        <div className="flex flex-col items-center mb-4">
+          <img src="https://example.com/profile-picture.jpg" alt="Foto de Perfil" className="w-32 h-32 object-cover rounded-full mb-4" />
+          <div className="text-lg font-semibold mb-2">Nombre Apellido</div>
+          <div className="text-gray-600 mb-2">correo@example.com</div>
+          <div className="text-gray-600">Experiencia: 1200 XP</div>
+        </div>
 
-      <div className="w-full flex flex-col items-center mb-4">
-        <img src="https://example.com/profile-picture.jpg" alt="Foto de Perfil" className="w-32 h-32 object-cover rounded-full mb-4" />
-        <div className="text-lg font-semibold mb-2">Nombre Apellido</div>
-        <div className="text-gray-600 mb-2">correo@example.com</div>
-        <div className="text-gray-600">Experiencia: 1200 XP</div>
-      </div>
+        <div className="flex justify-center">
+          <button className="btn btn-primary" onClick={handleOpenModal}>Editar Perfil</button>
+        </div>
 
-      <div className="w-full flex justify-center">
-        <button className="btn btn-primary" onClick={handleOpenModal}>Editar Perfil</button>
-      </div>
-
-      <Modal isOpen={isModalOpen} onClose={handleCloseModal} onSave={handleSaveChanges} />
+        <Modal isOpen={isModalOpen} onClose={handleCloseModal} onSave={handleSaveChanges} />
+      </main>
+      <Footer className="landing-page-footer" />
     </div>
   );
 }
