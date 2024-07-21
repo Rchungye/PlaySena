@@ -1,22 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { listarRanking } from '../../services/Usuario'; // Ajusta la ruta según tu estructura de carpetas
 
 function Ranking() {
-  // Ejemplo de datos
-  const rankingData = [
-    {
-      posicion: 1,
-      nombre: 'Jugador 1',
-      fotoPerfil: 'https://example.com/jugador1.jpg',
-      experiencia: 1500
-    },
-    {
-      posicion: 2,
-      nombre: 'Jugador 2',
-      fotoPerfil: 'https://example.com/jugador2.jpg',
-      experiencia: 1200
-    },
-    // Añadir más jugadores según sea necesario
-  ];
+  const [rankingData, setRankingData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchRanking = async () => {
+      try {
+        const data = await listarRanking();
+        setRankingData(data);
+        setLoading(false);
+      } catch (error) {
+        setError(error);
+        setLoading(false);
+      }
+    };
+
+    fetchRanking();
+  }, []);
+
+  if (loading) {
+    return <div className="text-center">Cargando...</div>;
+  }
+
+  if (error) {
+    return <div className="text-center text-red-500">Error: {error.message}</div>;
+  }
 
   return (
     <div className="container mx-auto p-4">

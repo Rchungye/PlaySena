@@ -1,26 +1,39 @@
-import React from 'react';
+// src/components/Juego/Niveles.jsx
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { obtenerEtapasNiveles } from '../../services/Juego'; // Asegúrate de importar desde el archivo correcto
 
 function Niveles() {
-  // Ejemplo de datos
-  const nivelesData = [
-    {
-      nombre: 'Nivel 1',
-      experiencia: 500
-    },
-    {
-      nombre: 'Nivel 2',
-      experiencia: 1000
-    },
-    // Añadir más niveles según sea necesario
-  ];
-
+  const [nivelesData, setNivelesData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const fetchNiveles = async () => {
+      try {
+        const response = await obtenerEtapasNiveles();
+        if (response.status === 200) {
+          setNivelesData(response.data.flatMap(etapa => etapa.niveles));
+        } else {
+          setError('Error al obtener los niveles');
+        }
+      } catch (error) {
+        setError('Error al obtener los niveles');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchNiveles();
+  }, []);
+
   const handleNivelClick = (nivel) => {
-    // Aquí puedes añadir lógica para pasar parámetros o estado si es necesario
     navigate('/lecciones');
   };
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
 
   return (
     <div className="container mx-auto p-4">
@@ -29,9 +42,9 @@ function Niveles() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {nivelesData.map((nivel, index) => (
+        {nivelesData.map((nivel) => (
           <div 
-            key={index} 
+            key={nivel.id_nivel} 
             className="border p-4 rounded shadow-md cursor-pointer"
             onClick={() => handleNivelClick(nivel)}
           >
