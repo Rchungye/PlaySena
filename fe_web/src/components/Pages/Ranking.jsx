@@ -24,14 +24,6 @@ function Ranking() {
     fetchRanking();
   }, []);
 
-  if (loading) {
-    return <div className="text-center">Cargando...</div>;
-  }
-
-  if (error) {
-    return <div className="text-center text-red-500">Error: {error.message}</div>;
-  }
-
   return (
     <div>
       <Header className="landing-page-header" />
