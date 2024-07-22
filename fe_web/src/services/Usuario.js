@@ -48,3 +48,13 @@ export const listarRanking = async () => {
     .then(response => response.data)
     .catch(error => Promise.resolve(error.response));
 };
+
+export const obtenerAyuda = async () => {
+  try {
+    const response = await ApiService.get('/users/ayuda');
+    return response.data; // Devuelve los datos de la respuesta
+  } catch (error) {
+    console.error('Error al obtener ayuda:', error);
+    return Promise.reject(error.response); // Propaga el error
+  }
+};
