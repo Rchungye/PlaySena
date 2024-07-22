@@ -34,10 +34,6 @@ function Ranking() {
       <Header className="landing-page-header" />
       <NavBar className="navbar" />
       <main className="ranking-main-content flex flex-col items-center justify-center p-4">
-        <div className="text-center mb-8">
-          <h1 id="titulo" className="text-3xl font-bold">Tabla de Clasificación</h1>
-        </div>
-
         {loading ? (
           <div className="flex items-center justify-center h-64">
             <h1 className="text-3xl font-bold">Cargando la tabla de clasificación.</h1>

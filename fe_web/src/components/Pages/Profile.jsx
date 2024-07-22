@@ -97,17 +97,17 @@ const Modal = ({ isOpen, onClose, onSave, userData }) => {
 function Profile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        // Aquí debes obtener el ID del usuario de alguna manera, por ejemplo, del contexto o del localStorage
         const userId = 1; // Ejemplo: Reemplaza con el ID del usuario actual
         const data = await obtenerUsuario(userId);
         setUserData(data);
       } catch (error) {
-        console.error("Error fetching user data", error);
-        Swal.fire("Error", "No se pudo obtener la información del usuario. Inténtalo nuevamente.", "error");
+        setError("No se pudo obtener la información del usuario. Inténtalo nuevamente.");
       } finally {
         setLoading(false);
       }
@@ -129,6 +129,22 @@ function Profile() {
       Swal.fire("Error", "No se pudo actualizar el perfil. Inténtalo nuevamente.", "error");
     }
   };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <h1 className="text-3xl font-bold">Cargando perfil...</h1>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <h1 className="text-3xl font-bold">{error}</h1>
+      </div>
+    );
+  }
 
   if (!userData) {
     return (
