@@ -11,7 +11,7 @@ import Help from '../components/Pages/Help';
 import Etapas from '../components/Juego/Etapas';
 import Niveles from '../components/Juego/Niveles';
 import Lecciones from '../components/Juego/Lecciones';
-import Desafios from '../components/Juego/Desafios';
+import Desafios from '../components/Juego/Desafios'; // Importa el componente actualizado
 import Final from '../components/Juego/Final';
 
 // Rutas de admin
@@ -46,9 +46,9 @@ function GameNavegator() {
 
           {/* Rutas de juego */}
           <Route path="/etapas" element={<Etapas />} />
-          <Route path="/niveles/:idEtapa" element={<Niveles />} /> {/* Ruta actualizada */}
-          <Route path="/lecciones" element={<Lecciones />} />
-          <Route path="/desafios" element={<Desafios />} />
+          <Route path="/niveles/:idEtapa" element={<Niveles />} />
+          <Route path="/lecciones/:idLeccion" element={<Lecciones />} />
+          <Route path="/desafios/:idNivel" element={<Desafios />} /> {/* Ruta actualizada */}
           <Route path="/final" element={<Final />} />
 
           {/* Rutas de admin */}

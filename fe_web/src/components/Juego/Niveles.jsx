@@ -14,8 +14,6 @@ function Niveles() {
     const fetchNiveles = async () => {
       try {
         const response = await obtenerEtapasNiveles();
-        console.log("Respuesta de API:", response); // Log para depuración
-
         if (response.status === 200) {
           // Filtrar niveles según el ID de la etapa
           const niveles = response.data.flatMap(etapa => 
