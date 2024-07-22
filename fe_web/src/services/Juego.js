@@ -2,16 +2,23 @@ import { ApiService } from './api.config';
 
 // Obtener todas las etapas
 export const obtenerEtapas = async () => {
-    return ApiService.get('/etapas/all')
-        .then(response => response.data)
-        .catch(error => Promise.resolve(error.response));
+    try {
+        const response = await ApiService.get('/etapas/all');
+        return { status: response.status, data: response.data }; // Devolver un objeto con status y data
+    } catch (error) {
+        return { status: error.response?.status || 500, data: error.response?.data || 'Error' }; // Manejar el error y devolver un objeto con status y data
+    }
 };
 
 // Obtener etapas y niveles
 export const obtenerEtapasNiveles = async () => {
-    return ApiService.get('/etapas/niveles')
-        .then(response => response.data)
-        .catch(error => Promise.resolve(error.response));
+    try {
+        const response = await ApiService.get('/etapas/niveles');
+        return { status: response.status, data: response.data }; // Devuelve un objeto con status y data
+    } catch (error) {
+        // Devuelve un objeto con el status del error y el mensaje
+        return { status: error.response?.status || 500, data: error.response?.data || 'Error desconocido' };
+    }
 };
 
 // Obtener desafíos para un nivel específico

@@ -27,8 +27,19 @@ const Header = ({ className = "" }) => {
     '/admin/help': { name: 'Administración de Ayuda', icon: <FaQuestion className="mr-2" /> }
   };
 
+  // Verificar si la ruta actual coincide con una ruta base y tiene parámetros
+  const getHeaderDetails = (pathname) => {
+    for (const route in routeDetails) {
+      // Verifica si la ruta base coincide
+      if (pathname === route || pathname.startsWith(route + '/')) {
+        return routeDetails[route];
+      }
+    }
+    return { name: 'Pantalla Desconocida', icon: <FaQuestion className="mr-2" /> };
+  };
+
   // Obtener el nombre y el icono basado en la ruta actual
-  const { name: screenName, icon } = routeDetails[location.pathname] || { name: 'Pantalla Desconocida', icon: <FaQuestion className="mr-2" /> };
+  const { name: screenName, icon } = getHeaderDetails(location.pathname);
 
   return (
     <header className={`landing-page-header ${className} flex items-center justify-center`}>
