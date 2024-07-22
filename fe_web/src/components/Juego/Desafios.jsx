@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { obtenerDesafiosNivel } from '../../services/Juego';
 import Header from '../Header';
 import NavBar from '../NavBar';
 
 const Desafios = () => {
   const { idNivel } = useParams();
+  const navigate = useNavigate();
   const [desafios, setDesafios] = useState([]);
   const [currentDesafioIndex, setCurrentDesafioIndex] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -52,7 +53,8 @@ const Desafios = () => {
         setCurrentDesafioIndex(currentDesafioIndex + 1);
         setSelectedRespuesta(null);
       } else {
-        alert('¡Has completado todos los desafíos!');
+        // Redirige a la página de Final
+        navigate('/final');
       }
     } else {
       alert('Respuesta incorrecta, intenta de nuevo.');
