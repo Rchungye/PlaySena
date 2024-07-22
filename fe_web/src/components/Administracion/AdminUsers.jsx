@@ -6,6 +6,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import VisibilityIcon from '@mui/icons-material/Visibility'; // Icono para ver la imagen
 import Swal from 'sweetalert2';
 import * as usuarioService from '../../services/Usuario'; // Asegúrate de que esta ruta es correcta
+import Header from '../Header'; // Import Header component
 
 const AdminUsers = () => {
   const [users, setUsers] = useState([]);
@@ -160,11 +161,15 @@ const AdminUsers = () => {
   ];
 
   return (
-    <div>
-      <h1>Administrar Usuarios</h1>
-      <Button variant="contained" color="primary" onClick={() => handleOpenDialog()}>Añadir Usuario</Button>
-      <div style={{ height: 600, width: '100%' }}>
-        <DataGrid rows={users} columns={columns} pageSize={10} />
+    <div className="admin-users-container">
+      <Header />
+      <div className="admin-users-content">
+        <div className="admin-users-button-wrapper">
+          <Button variant="contained" color="primary" onClick={() => handleOpenDialog()}>Añadir Usuario</Button>
+        </div>
+        <div style={{ height: 600, width: '100%' }}>
+          <DataGrid rows={users} columns={columns} pageSize={10} />
+        </div>
       </div>
       <Dialog open={dialogOpen} onClose={handleCloseDialog}>
         <DialogTitle>{editMode ? 'Editar Usuario' : 'Añadir Usuario'}</DialogTitle>

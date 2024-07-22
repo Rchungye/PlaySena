@@ -3,14 +3,14 @@ import { DataGrid } from '@mui/x-data-grid';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, TextField, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import VisibilityIcon from '@mui/icons-material/Visibility'; // Icono para ver la imagen
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import Swal from 'sweetalert2';
+import Header from '../Header'; // Import Header component
 
 const AdminDesafios = () => {
   const [desafios, setDesafios] = useState([
     { id: 1, nombre: 'Desafío 1', descripcion: 'Descripción del desafío 1', imagen: 'https://example.com/desafio1.jpg', tipo: 1 },
     { id: 2, nombre: 'Desafío 2', descripcion: 'Descripción del desafío 2', imagen: 'https://example.com/desafio2.jpg', tipo: 2 },
-    // Añadir más desafíos según sea necesario
   ]);
 
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -20,7 +20,7 @@ const AdminDesafios = () => {
     nombre: '',
     descripcion: '',
     imagen: '',
-    tipo: 1 // Valor por defecto
+    tipo: 1
   });
 
   const [imageModalOpen, setImageModalOpen] = useState(false);
@@ -43,7 +43,7 @@ const AdminDesafios = () => {
         nombre: '',
         descripcion: '',
         imagen: '',
-        tipo: 1 // Valor por defecto
+        tipo: 1
       });
     }
     setDialogOpen(true);
@@ -51,7 +51,7 @@ const AdminDesafios = () => {
 
   const handleCloseDialog = () => {
     setDialogOpen(false);
-    setImageModalOpen(false); // Cierra el modal de imagen al cerrar el diálogo
+    setImageModalOpen(false);
   };
 
   const handleChange = (e) => {
@@ -129,11 +129,13 @@ const AdminDesafios = () => {
   ];
 
   return (
-    <div>
-      <h1>Administrar Desafíos</h1>
-      <Button variant="contained" color="primary" onClick={() => handleOpenDialog()}>Añadir Desafío</Button>
-      <div style={{ height: 600, width: '100%' }}>
-        <DataGrid rows={desafios} columns={columns} pageSize={10} />
+    <div className="admin-desafios-container">
+      <Header />
+      <div className="admin-desafios-content">
+        <Button variant="contained" color="primary" onClick={() => handleOpenDialog()}>Añadir Desafío</Button>
+        <div className="admin-desafios-table">
+          <DataGrid rows={desafios} columns={columns} pageSize={10} />
+        </div>
       </div>
       <Dialog open={dialogOpen} onClose={handleCloseDialog}>
         <DialogTitle>{editMode ? 'Editar Desafío' : 'Añadir Desafío'}</DialogTitle>

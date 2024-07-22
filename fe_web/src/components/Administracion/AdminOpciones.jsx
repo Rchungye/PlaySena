@@ -5,6 +5,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import VisibilityIcon from '@mui/icons-material/Visibility'; // Icono para ver la imagen
 import Swal from 'sweetalert2';
+import Header from '../Header'; // Import Header component
 
 const AdminOpciones = () => {
   const [opciones, setOpciones] = useState([
@@ -121,11 +122,15 @@ const AdminOpciones = () => {
   ];
 
   return (
-    <div>
-      <h1>Administrar Opciones</h1>
-      <Button variant="contained" color="primary" onClick={() => handleOpenDialog()}>Añadir Opción</Button>
-      <div style={{ height: 600, width: '100%' }}>
-        <DataGrid rows={opciones} columns={columns} pageSize={10} />
+    <div className="admin-opciones-container">
+      <Header />
+      <div className="admin-opciones-content">
+        <div className="admin-opciones-button-wrapper">
+          <Button variant="contained" color="primary" onClick={() => handleOpenDialog()}>Añadir Opción</Button>
+        </div>
+        <div style={{ height: 600, width: '100%' }}>
+          <DataGrid rows={opciones} columns={columns} pageSize={10} />
+        </div>
       </div>
       <Dialog open={dialogOpen} onClose={handleCloseDialog}>
         <DialogTitle>{editMode ? 'Editar Opción' : 'Añadir Opción'}</DialogTitle>
