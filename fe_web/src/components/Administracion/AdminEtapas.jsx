@@ -44,7 +44,7 @@ const AdminEtapas = () => {
       setFormData({
         nombre: etapa.nombre,
         descripcion: etapa.descripcion,
-        image_url: etapa.image_url // Actualiza el campo para coincidir con la respuesta del backend
+        image_url: etapa.image_url
       });
     } else {
       setEditMode(false);
@@ -80,8 +80,8 @@ const AdminEtapas = () => {
         console.error('Error updating etapa:', response.data);
       }
     } else {
-      const newEtapa = { ...formData };
-      const response = await registrarEtapa(newEtapa);
+      const { nombre, descripcion } = formData;
+      const response = await registrarEtapa(nombre, descripcion);
       if (response.status === 201) {
         fetchEtapas(); // Refrescar la lista de etapas después de la creación
       } else {

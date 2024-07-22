@@ -1,17 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Swal from 'sweetalert2';
 import Header from '../Header'; // Import Header component
+import { obtenerAyuda, actualizarAyuda, eliminarAyuda } from '../../services/Ayuda'; // Actualiza la ruta según tu estructura
 
 const AdminHelp = () => {
-  const [ayudas, setAyudas] = useState([
-    { id: 1, nombre: 'Ayuda 1', descripcion: 'Descripción de la Ayuda 1' },
-    { id: 2, nombre: 'Ayuda 2', descripcion: 'Descripción de la Ayuda 2' },
-    // Añadir más ayudas según sea necesario
-  ]);
+  const [ayudas, setAyudas] = useState([]);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [currentAyuda, setCurrentAyuda] = useState(null);
@@ -19,6 +16,20 @@ const AdminHelp = () => {
     nombre: '',
     descripcion: ''
   });
+
+  // Fetch ayudas data on component mount
+  useEffect(() => {
+    const fetchAyudas = async () => {
+      try {
+        const data = await obtenerAyuda();
+        setAyudas(data);
+      } catch (error) {
+        console.error('Error fetching ayudas:', error);
+      }
+    };
+
+    fetchAyudas();
+  }, []);
 
   const handleOpenDialog = (ayuda = null) => {
     if (ayuda) {
@@ -51,27 +62,39 @@ const AdminHelp = () => {
     });
   };
 
-  const handleSave = () => {
-    if (editMode) {
-      const updatedAyudas = ayudas.map((a) => (a.id === currentAyuda.id ? { ...currentAyuda, ...formData } : a));
-      setAyudas(updatedAyudas);
-    } else {
-      const newAyuda = { id: ayudas.length + 1, ...formData };
-      setAyudas([...ayudas, newAyuda]);
+  const handleSave = async () => {
+    try {
+      if (editMode) {
+        const result = await actualizarAyuda({ id: currentAyuda.id, ...formData });
+        if (result) {
+          const updatedAyudas = ayudas.map((a) => (a.id === currentAyuda.id ? { ...currentAyuda, ...formData } : a));
+          setAyudas(updatedAyudas);
+        }
+      } else {
+        const newAyuda = { id: ayudas.length + 1, ...formData };
+        setAyudas([...ayudas, newAyuda]);
+      }
+      handleCloseDialog();
+    } catch (error) {
+      console.error('Error saving ayuda:', error);
     }
-    handleCloseDialog();
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
     Swal.fire({
       title: 'Eliminar Ayuda',
       text: `¿Está seguro que desea eliminar la ayuda #${id}?`,
       showDenyButton: true,
       confirmButtonText: 'Eliminar',
       denyButtonText: 'Cerrar'
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        setAyudas(ayudas.filter((a) => a.id !== id));
+        try {
+          await eliminarAyuda(id);
+          setAyudas(ayudas.filter((a) => a.id !== id));
+        } catch (error) {
+          console.error('Error deleting ayuda:', error);
+        }
       }
     });
   };

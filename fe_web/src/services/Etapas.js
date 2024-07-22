@@ -1,8 +1,13 @@
 import { ApiService } from './api.config';
 
 // Registrar una nueva etapa
-export const registrarEtapa = async (etapa) => {
-  return ApiService.post('admin/etapas/registrar', etapa)
+export const registrarEtapa = async (nombre, descripcion) => {
+  return ApiService.post('admin/etapas/registrar', null, {
+    params: {
+      nombre,
+      descripcion
+    }
+  })
     .then(response => response.data)
     .catch(error => Promise.resolve(error.response));
 };
