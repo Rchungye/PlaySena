@@ -7,11 +7,11 @@ import NavBar from '../NavBar';
 const Desafios = () => {
   const { idNivel } = useParams();
   const [desafios, setDesafios] = useState([]);
-  const [currentDesafioIndex, setCurrentDesafioIndex] = useState(0); // Estado para el índice del desafío actual
+  const [currentDesafioIndex, setCurrentDesafioIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [respuesta, setRespuesta] = useState(''); // Estado para la respuesta del usuario
-  const [respuestaCorrecta, setRespuestaCorrecta] = useState(null); // Estado para la respuesta correcta del desafío actual
+  const [selectedRespuesta, setSelectedRespuesta] = useState(null);
+  const [respuestaCorrecta, setRespuestaCorrecta] = useState(null);
 
   useEffect(() => {
     const fetchDesafios = async () => {
@@ -20,7 +20,9 @@ const Desafios = () => {
         if (response.status === 200) {
           setDesafios(response.data);
           if (response.data.length > 0) {
-            setRespuestaCorrecta(response.data[0].respuestaCorrecta); // Suponiendo que cada desafío tiene una respuesta correcta
+            const respuestas = response.data[0].respuestas;
+            const respuestaCorrecta = respuestas.find(resp => resp.correcta);
+            setRespuestaCorrecta(respuestaCorrecta);
           }
         } else {
           setError('Error al obtener los desafíos');
@@ -36,14 +38,20 @@ const Desafios = () => {
     fetchDesafios();
   }, [idNivel]);
 
+  useEffect(() => {
+    if (desafios.length > 0) {
+      const respuestas = desafios[currentDesafioIndex].respuestas;
+      const respuestaCorrecta = respuestas.find(resp => resp.correcta);
+      setRespuestaCorrecta(respuestaCorrecta);
+    }
+  }, [currentDesafioIndex, desafios]);
+
   const handleRespuesta = () => {
-    if (respuesta === respuestaCorrecta) {
+    if (selectedRespuesta === respuestaCorrecta.id) {
       if (currentDesafioIndex < desafios.length - 1) {
         setCurrentDesafioIndex(currentDesafioIndex + 1);
-        setRespuesta(''); // Limpiar la respuesta
-        setRespuestaCorrecta(desafios[currentDesafioIndex + 1].respuestaCorrecta); // Actualizar la respuesta correcta
+        setSelectedRespuesta(null);
       } else {
-        // Si no hay más desafíos, podrías redirigir al usuario a una página de finalización o mostrar un mensaje
         alert('¡Has completado todos los desafíos!');
       }
     } else {
@@ -69,17 +77,28 @@ const Desafios = () => {
             <h1 className="text-3xl font-bold">{error}</h1>
           </div>
         ) : desafios.length > 0 ? (
-          <div className="p-4 border rounded shadow-md">
-            <h2 className="text-xl font-bold">{desafios[currentDesafioIndex].pregunta}</h2>
-            <img src={desafios[currentDesafioIndex].imagen} alt={desafios[currentDesafioIndex].pregunta} className="mt-2 w-full h-40 object-cover rounded" />
-            <div className="my-4">
-              <input
-                type="text"
-                value={respuesta}
-                onChange={(e) => setRespuesta(e.target.value)}
-                placeholder="Escribe tu respuesta aquí..."
-                className="p-2 border rounded w-full"
-              />
+          <div className="flex flex-col items-center justify-center p-6 border rounded shadow-md mx-4">
+            <h2 className="text-xl font-bold mb-4 text-center">{desafios[currentDesafioIndex].pregunta}</h2>
+            <img
+              src={desafios[currentDesafioIndex].foto}
+              alt={desafios[currentDesafioIndex].pregunta}
+              className="mt-2 w-80 h-80 object-cover rounded mb-4"
+            />
+            <div className="my-4 w-full max-w-md">
+              {desafios[currentDesafioIndex].respuestas.map((respuesta) => (
+                <div key={respuesta.id} className="mb-2 flex items-center">
+                  <input
+                    type="radio"
+                    id={`respuesta-${respuesta.id}`}
+                    name="respuesta"
+                    value={respuesta.id}
+                    checked={selectedRespuesta === respuesta.id}
+                    onChange={() => setSelectedRespuesta(respuesta.id)}
+                    className="mr-2"
+                  />
+                  <label htmlFor={`respuesta-${respuesta.id}`}>{respuesta.respuesta}</label>
+                </div>
+              ))}
             </div>
             <div className="text-center mt-8">
               <button
