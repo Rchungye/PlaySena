@@ -9,7 +9,7 @@
   font-weight: 400;
   color-scheme: light dark;
   color: rgba(0, 0, 0, 0.87);
-  background-color: #d4c8c8;
+  background-color: #f1f1f1;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -125,7 +125,7 @@ html, body {
   left: 0;
   right: 0;
   z-index: 50; /* Ensure it stays on top */
-  background: linear-gradient(90deg, #af52de, #30b0c7);
+  background: linear-gradient(90deg, #FFBB3B, #fdef2a);
   display: flex;
   align-items: center;
   padding: 1rem;
@@ -247,6 +247,193 @@ html, body {
   padding-bottom: 80px; /* Space for footer */
   box-sizing: border-box;
 }
+
+
+
+
+.admin-desafios-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  padding-top: 64px; /* Adjust this value based on the height of your header */
+  box-sizing: border-box;
+}
+
+.admin-desafios-content {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  align-items: center;
+  margin-top: 20px; /* Space between the button and the table */
+}
+
+.admin-desafios-table {
+  height: 600px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+
+.admin-etapas-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  padding-top: 64px; /* Adjust this value based on the height of your header */
+  box-sizing: border-box;
+}
+
+.admin-etapas-content {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  align-items: center;
+  margin-top: 20px; /* Space between the button and the table */
+}
+
+.admin-niveles-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+}
+
+.admin-niveles-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+  margin-top: 80px; /* Adjust this value to create space for the header */
+}
+
+.admin-lecciones-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  padding-top: 64px; /* Adjust this value based on the height of your header */
+  box-sizing: border-box;
+}
+
+.admin-lecciones-content {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  align-items: center;
+  margin-top: 20px; /* Space between the button and the table */
+}
+
+.admin-opciones-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  padding-top: 64px; /* Adjust this value based on the height of your header */
+  box-sizing: border-box;
+}
+
+.admin-opciones-content {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  align-items: center;
+  margin-top: 20px; /* Space between the button and the table */
+}
+
+.admin-opciones-button-wrapper {
+  margin-bottom: 20px; /* Adds space between the button and the table */
+}
+
+.admin-users-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  padding-top: 64px; /* Adjust this value based on the height of your header */
+  box-sizing: border-box;
+}
+
+.admin-users-content {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  align-items: center;
+  margin-top: 20px; /* Space between the button and the table */
+}
+
+.admin-users-button-wrapper {
+  margin-bottom: 20px; /* Space between the button and the table */
+}
+
+.admin-help-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  padding-top: 64px; /* Adjust this value based on the height of your header */
+  box-sizing: border-box;
+}
+
+.admin-help-content {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  align-items: center;
+  margin-top: 20px; /* Space between the button and the table */
+}
+
+.admin-help-button-wrapper {
+  margin-bottom: 20px; /* Space between the button and the table */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -474,4 +661,25 @@ html, body {
 .landing-page-form-button:hover {
   background-color: #6c757d;
   border-color: #6c757d;
+}
+
+
+
+/* Agrega estas reglas a tu archivo CSS o en una clase de estilo en tu componente */
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px; /* Ajusta el tamaño según sea necesario */
+  height: 100px; /* Ajusta el tamaño según sea necesario */
+  background-color: white; /* Color del círculo */
+  border-radius: 50%; /* Hace que el contenedor sea circular */
+  margin: 0 auto; /* Centra el contenedor horizontalmente */
+  box-shadow: 0 0 0 2px #ccc; /* Agrega una sombra si lo deseas */
+}
+
+.logo-container img {
+  width: 810px; /* Ajusta el tamaño del logo según sea necesario */
+  height: 81px; /* Ajusta el tamaño del logo según sea necesario */
 }

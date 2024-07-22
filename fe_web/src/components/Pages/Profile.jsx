@@ -4,6 +4,8 @@ import NavBar from '../NavBar';
 import { useUser } from '../../store/UserContext'; // Ajusta la ruta según tu estructura
 import { actualizarUsuario } from '../../services/Usuario'; // Ajusta la ruta según tu estructura
 import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
+import { FaEdit, FaSignOutAlt } from 'react-icons/fa'; // Importar el ícono de editar y cerrar sesión
 
 // Modal component
 const Modal = ({ isOpen, onClose, onSave, userData }) => {
@@ -99,7 +101,7 @@ function Profile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { user, setUser } = useUser(); // Obtener la información del usuario desde el contexto
+  const { user, setUser, logout } = useUser(); // Obtener la información del usuario desde el contexto
 
   useEffect(() => {
     if (user) {
@@ -123,6 +125,11 @@ function Profile() {
     } catch (error) {
       Swal.fire("Error", "No se pudo actualizar el perfil. Inténtalo nuevamente.", "error");
     }
+  };
+
+  const handleLogout = () => {
+    logout();
+    window.location.href = '/'; // Redirigir al inicio de sesión o a la página principal
   };
 
   if (loading) {
@@ -169,8 +176,16 @@ function Profile() {
           <div className="text-gray-600">Experiencia: {user.exp} XP</div>
         </div>
 
+        <div className="flex justify-center mb-4">
+          <button className="btn btn-primary flex items-center" onClick={handleOpenModal}>
+            <FaEdit className="mr-2" /> <span>Editar Perfil</span>
+          </button>
+        </div>
+
         <div className="flex justify-center">
-          <button className="btn btn-primary" onClick={handleOpenModal}>Editar Perfil</button>
+          <button className="btn btn-secondary flex items-center" onClick={handleLogout}>
+            <FaSignOutAlt className="mr-2" /> <span>Cerrar Sesión</span>
+          </button>
         </div>
 
         <Modal

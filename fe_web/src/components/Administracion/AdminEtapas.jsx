@@ -1,29 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, TextField } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import VisibilityIcon from '@mui/icons-material/Visibility'; // Icono para ver la imagen
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import Swal from 'sweetalert2';
+import Header from '../Header'; // Import Header component
+import { obtenerEtapas } from '../../services/Juego';
+import { registrarEtapa, obtenerEtapa, actualizarEtapa, eliminarEtapa } from '../../services/Etapas'; // Importar las API
 
 const AdminEtapas = () => {
-  const [etapas, setEtapas] = useState([
-    { id: 1, nombre: 'Etapa 1', descripcion: 'Descripción de la Etapa 1', imagen: 'https://example.com/etapa1.jpg' },
-    { id: 2, nombre: 'Etapa 2', descripcion: 'Descripción de la Etapa 2', imagen: 'https://example.com/etapa2.jpg' },
-    // Añadir más etapas según sea necesario
-  ]);
-
+  const [etapas, setEtapas] = useState([]);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [currentEtapa, setCurrentEtapa] = useState(null);
   const [formData, setFormData] = useState({
     nombre: '',
     descripcion: '',
-    imagen: ''
+    image_url: ''
   });
 
   const [imageModalOpen, setImageModalOpen] = useState(false);
   const [imageToShow, setImageToShow] = useState('');
+
+  // Función para obtener todas las etapas del backend
+  const fetchEtapas = async () => {
+    const response = await obtenerEtapas();
+    if (response.status === 200) {
+      setEtapas(response.data);
+    } else {
+      console.error('Error fetching etapas:', response.data);
+    }
+  };
+
+  useEffect(() => {
+    fetchEtapas();
+  }, []);
 
   const handleOpenDialog = (etapa = null) => {
     if (etapa) {
@@ -32,7 +44,7 @@ const AdminEtapas = () => {
       setFormData({
         nombre: etapa.nombre,
         descripcion: etapa.descripcion,
-        imagen: etapa.imagen
+        image_url: etapa.image_url // Actualiza el campo para coincidir con la respuesta del backend
       });
     } else {
       setEditMode(false);
@@ -40,7 +52,7 @@ const AdminEtapas = () => {
       setFormData({
         nombre: '',
         descripcion: '',
-        imagen: ''
+        image_url: ''
       });
     }
     setDialogOpen(true);
@@ -58,13 +70,23 @@ const AdminEtapas = () => {
     });
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (editMode) {
-      const updatedEtapas = etapas.map((e) => (e.id === currentEtapa.id ? { ...currentEtapa, ...formData } : e));
-      setEtapas(updatedEtapas);
+      const updatedEtapa = { id: currentEtapa.id, ...formData };
+      const response = await actualizarEtapa(updatedEtapa);
+      if (response.status === 200) {
+        fetchEtapas(); // Refrescar la lista de etapas después de la actualización
+      } else {
+        console.error('Error updating etapa:', response.data);
+      }
     } else {
-      const newEtapa = { id: etapas.length + 1, ...formData };
-      setEtapas([...etapas, newEtapa]);
+      const newEtapa = { ...formData };
+      const response = await registrarEtapa(newEtapa);
+      if (response.status === 201) {
+        fetchEtapas(); // Refrescar la lista de etapas después de la creación
+      } else {
+        console.error('Error creating etapa:', response.data);
+      }
     }
     handleCloseDialog();
   };
@@ -76,10 +98,14 @@ const AdminEtapas = () => {
       showDenyButton: true,
       confirmButtonText: 'Eliminar',
       denyButtonText: 'Cerrar'
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        const updatedEtapas = etapas.filter((e) => e.id !== id);
-        setEtapas(updatedEtapas);
+        const response = await eliminarEtapa(id);
+        if (response.status === 200) {
+          fetchEtapas(); // Refrescar la lista de etapas después de la eliminación
+        } else {
+          console.error('Error deleting etapa:', response.data);
+        }
       }
     });
   };
@@ -94,7 +120,7 @@ const AdminEtapas = () => {
     { field: 'nombre', headerName: 'Nombre', width: 200 },
     { field: 'descripcion', headerName: 'Descripción', width: 250 },
     {
-      field: 'imagen',
+      field: 'image_url',
       headerName: 'Imagen',
       width: 150,
       renderCell: (params) => (
@@ -117,11 +143,13 @@ const AdminEtapas = () => {
   ];
 
   return (
-    <div>
-      <h1>Administrar Etapas</h1>
-      <Button variant="contained" color="primary" onClick={() => handleOpenDialog()}>Añadir Etapa</Button>
-      <div style={{ height: 600, width: '100%' }}>
-        <DataGrid rows={etapas} columns={columns} pageSize={10} />
+    <div className="admin-etapas-container">
+      <Header />
+      <div className="admin-etapas-content">
+        <Button variant="contained" color="primary" onClick={() => handleOpenDialog()}>Añadir Etapa</Button>
+        <div style={{ height: 600, width: '100%', marginTop: '20px' }}>
+          <DataGrid rows={etapas} columns={columns} pageSize={10} />
+        </div>
       </div>
       <Dialog open={dialogOpen} onClose={handleCloseDialog}>
         <DialogTitle>{editMode ? 'Editar Etapa' : 'Añadir Etapa'}</DialogTitle>
@@ -145,8 +173,8 @@ const AdminEtapas = () => {
           <TextField
             margin="dense"
             label="Imagen"
-            name="imagen"
-            value={formData.imagen}
+            name="image_url"
+            value={formData.image_url}
             onChange={handleChange}
             fullWidth
           />

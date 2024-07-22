@@ -1,12 +1,21 @@
-// store/UserContext.jsx
-import React, { createContext, useState, useContext } from 'react';
+// UserContext.jsx
+import React, { createContext, useState, useContext, useEffect } from 'react';
 
-// Crear el contexto
 const UserContext = createContext();
 
-// Crear el proveedor del contexto
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => {
+    const storedUser = localStorage.getItem('user');
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
+
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem('user', JSON.stringify(user));
+    } else {
+      localStorage.removeItem('user');
+    }
+  }, [user]);
 
   const login = (userData) => {
     setUser(userData);
@@ -17,11 +26,10 @@ export const UserProvider = ({ children }) => {
   };
 
   return (
-    <UserContext.Provider value={{ user, login, logout }}>
+    <UserContext.Provider value={{ user, setUser, login, logout }}>
       {children}
     </UserContext.Provider>
   );
 };
 
-// Hook para usar el contexto
 export const useUser = () => useContext(UserContext);

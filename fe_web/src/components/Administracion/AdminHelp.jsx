@@ -4,6 +4,7 @@ import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, I
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Swal from 'sweetalert2';
+import Header from '../Header'; // Import Header component
 
 const AdminHelp = () => {
   const [ayudas, setAyudas] = useState([
@@ -93,11 +94,15 @@ const AdminHelp = () => {
   ];
 
   return (
-    <div>
-      <h1>Administrar Ayudas</h1>
-      <Button variant="contained" color="primary" onClick={() => handleOpenDialog()}>Añadir Ayuda</Button>
-      <div style={{ height: 600, width: '100%' }}>
-        <DataGrid rows={ayudas} columns={columns} pageSize={10} />
+    <div className="admin-help-container">
+      <Header />
+      <div className="admin-help-content">
+        <div className="admin-help-button-wrapper">
+          <Button variant="contained" color="primary" onClick={() => handleOpenDialog()}>Añadir Ayuda</Button>
+        </div>
+        <div style={{ height: 600, width: '100%' }}>
+          <DataGrid rows={ayudas} columns={columns} pageSize={10} />
+        </div>
       </div>
       <Dialog open={dialogOpen} onClose={handleCloseDialog}>
         <DialogTitle>{editMode ? 'Editar Ayuda' : 'Añadir Ayuda'}</DialogTitle>

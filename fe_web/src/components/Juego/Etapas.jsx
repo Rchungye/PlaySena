@@ -7,20 +7,21 @@ import NavBar from '../NavBar';
 function Etapas() {
   const navigate = useNavigate();
   const [etapasData, setEtapasData] = useState([]);
+  const [error, setError] = useState(null); // Agregar estado para manejar errores
 
   // Obtener las etapas desde la API
   useEffect(() => {
     const fetchEtapas = async () => {
       try {
         const response = await obtenerEtapas();
-        // Verifica si la respuesta es exitosa
-        if (response && response.status === 200) {
+        if (response.status === 200) {
           setEtapasData(response.data);
+          setError(null); // Limpiar el error si la respuesta es exitosa
         } else {
-          console.error("Error al obtener etapas:", response);
+          setError(`Error al obtener etapas: ${response.data}`);
         }
       } catch (error) {
-        console.error("Error al obtener etapas:", error);
+        setError(`Error al obtener etapas: ${error.message}`);
       }
     };
 
@@ -33,28 +34,32 @@ function Etapas() {
   };
 
   return (
-    <div>
+    <div className="flex flex-col min-h-screen">
       <Header className="landing-page-header" />
       <NavBar className="navbar" />
-      <main className="etapas-main-content container mx-auto p-4">
+      <main className="flex-grow container mx-auto p-4">
         <div className="text-center mb-8">
           <h1 id="titulo" className="text-3xl font-bold">Etapas</h1>
         </div>
 
-        {etapasData.length === 0 ? (
+        {error ? (
           <div className="flex items-center justify-center h-64">
-            <h1 className="text-3xl font-bold">El juego está en mantenimiento.</h1>
+            <h1 className="text-3xl font-bold">{error}</h1>
+          </div>
+        ) : etapasData.length === 0 ? (
+          <div className="flex items-center justify-center h-64">
+            <h1 className="text-3xl font-bold">Cargando Etapas...</h1>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {etapasData.map((etapa) => (
               <div
-                key={etapa.id_etapa}
-                className="border p-4 rounded shadow-md cursor-pointer"
-                onClick={() => handleClick(etapa.id_etapa)}
+                key={etapa.id}
+                className="border p-4 rounded shadow-md cursor-pointer w-full"
+                onClick={() => handleClick(etapa.id)}
               >
                 <img
-                  src={etapa.imagen || 'https://via.placeholder.com/150'} // Usa una imagen por defecto si no hay imagen
+                  src={etapa.image_url || 'https://via.placeholder.com/150'} // Usa una imagen por defecto si no hay imagen
                   alt={etapa.nombre}
                   className="w-full h-48 object-cover mb-4 rounded"
                 />

@@ -1,17 +1,29 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaHome, FaStar, FaSearch, FaUser } from 'react-icons/fa';
+import { FaHome, FaStar, FaSearch, FaUser, FaCogs, FaBook, FaQuestion, FaUsers, FaTachometerAlt, FaPlus } from 'react-icons/fa'; // Importar íconos
 import { useUser } from '../store/UserContext'; // Ajusta la ruta según tu estructura
+
+// Importa el logo
+import logo from '../../src/assets/images/logo.png'; // Ajusta la ruta según tu estructura
 
 function NavBar() {
   const { user } = useUser(); // Obtener la información del usuario desde el contexto
 
   return (
     <nav className="navbar">
-      <div className="w-full text-center">
-        <h1 className="text-2xl font-bold mb-4">
-          {user?.tipo === 1 ? 'Jugador' : 'Administrador'}
-        </h1>
+      <div className="w-full text-center mb-4">
+        <div className="flex items-center justify-center space-x-2">
+          <img
+            src={user?.fotoPerfil} // Foto de perfil del usuario
+            alt="Foto de perfil"
+            className="w-12 h-12 rounded-full object-cover"
+          />
+          <div className="text-left">
+            <p className="font-bold">{user?.nombre} {user?.apellido}</p>
+            <p>Experiencia: {user?.exp}</p>
+            <p>{user?.tipo === 1 ? 'Jugador' : 'Administrador'}</p>
+          </div>
+        </div>
       </div>
       <div className="flex flex-col space-y-2 w-full items-center">
         {/* Opciones comunes */}
@@ -40,36 +52,55 @@ function NavBar() {
         {user?.tipo === 2 && (
           <>
             <div className="w-full text-center mt-8">
-              <h1 className="text-2xl font-bold mb-4">Administrador</h1>
+              <h1 className="text-2xl font-bold m-4">Opciones de Gestión</h1>
             </div>
             <Link to="/admin/etapas">
-              <button className="btn">Administrar Etapas</button>
+              <button className="btn flex items-center">
+                <FaCogs className="mr-2" /> <span>Etapas</span>
+              </button>
             </Link>
             <Link to="/admin/niveles">
-              <button className="btn">Administrar Niveles</button>
+              <button className="btn flex items-center">
+                <FaTachometerAlt className="mr-2" /> <span>Niveles</span>
+              </button>
             </Link>
             <Link to="/admin/lecciones">
-              <button className="btn">Administrar Lecciones</button>
+              <button className="btn flex items-center">
+                <FaBook className="mr-2" /> <span>Lecciones</span>
+              </button>
             </Link>
             <Link to="/admin/desafios">
-              <button className="btn">Administrar Desafíos</button>
+              <button className="btn flex items-center">
+                <FaQuestion className="mr-2" /> <span>Desafíos</span>
+              </button>
             </Link>
             <Link to="/admin/opciones">
-              <button className="btn">Administrar Opciones</button>
+              <button className="btn flex items-center">
+                <FaPlus className="mr-2" /> <span>Opciones</span>
+              </button>
             </Link>
             <Link to="/admin/users">
-              <button className="btn">Administrar Usuarios</button>
+              <button className="btn flex items-center">
+                <FaUsers className="mr-2" /> <span>Usuarios</span>
+              </button>
             </Link>
             <Link to="/admin/help">
-              <button className="btn">Administrar Ayuda</button>
+              <button className="btn flex items-center">
+                <FaQuestion className="mr-2" /> <span>Ayuda</span>
+              </button>
             </Link>
           </>
         )}
       </div>
+      {/* Logo y nombre de la página */}
       <div className="w-full text-center mt-8">
-        <Link to="/">
-          <button className="btn">Cerrar Sesión</button>
-        </Link>
+        <div className="logo-container">
+          <img
+            src={logo}
+            alt="Logo de PlaySeña"
+          />
+        </div>
+        <h1 className="text-xl font-bold">PlaySeña</h1>
       </div>
     </nav>
   );
