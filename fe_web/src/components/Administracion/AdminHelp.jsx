@@ -13,8 +13,8 @@ const AdminHelp = () => {
   const [editMode, setEditMode] = useState(false);
   const [currentAyuda, setCurrentAyuda] = useState(null);
   const [formData, setFormData] = useState({
-    nombre: '',
-    descripcion: ''
+    pregunta: '',
+    respuesta: ''
   });
 
   // Fetch ayudas data on component mount
@@ -36,15 +36,15 @@ const AdminHelp = () => {
       setEditMode(true);
       setCurrentAyuda(ayuda);
       setFormData({
-        nombre: ayuda.nombre,
-        descripcion: ayuda.descripcion
+        pregunta: ayuda.pregunta,
+        respuesta: ayuda.respuesta
       });
     } else {
       setEditMode(false);
       setCurrentAyuda(null);
       setFormData({
-        nombre: '',
-        descripcion: ''
+        pregunta: '',
+        respuesta: ''
       });
     }
     setDialogOpen(true);
@@ -101,8 +101,8 @@ const AdminHelp = () => {
 
   const columns = [
     { field: 'id', headerName: 'ID', width: 100 },
-    { field: 'nombre', headerName: 'Nombre', width: 200 },
-    { field: 'descripcion', headerName: 'Descripción', width: 250 },
+    { field: 'pregunta', headerName: 'Pregunta', width: 300 },
+    { field: 'respuesta', headerName: 'Respuesta', width: 400 },
     {
       field: 'acciones',
       headerName: 'Acciones',
@@ -132,17 +132,17 @@ const AdminHelp = () => {
         <DialogContent>
           <TextField
             margin="dense"
-            label="Nombre"
-            name="nombre"
-            value={formData.nombre}
+            label="Pregunta"
+            name="pregunta"
+            value={formData.pregunta}
             onChange={handleChange}
             fullWidth
           />
           <TextField
             margin="dense"
-            label="Descripción"
-            name="descripcion"
-            value={formData.descripcion}
+            label="Respuesta"
+            name="respuesta"
+            value={formData.respuesta}
             onChange={handleChange}
             fullWidth
           />
