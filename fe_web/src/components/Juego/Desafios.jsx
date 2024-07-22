@@ -13,6 +13,11 @@ const Desafios = () => {
   const [error, setError] = useState(null);
   const [selectedRespuesta, setSelectedRespuesta] = useState(null);
   const [respuestaCorrecta, setRespuestaCorrecta] = useState(null);
+  const [showCheckmark, setShowCheckmark] = useState(false);
+  const [showRetryMessage, setShowRetryMessage] = useState(false);
+
+  const correctSound = new Audio('/FB_Correct.mp3');
+  const incorrectSound = new Audio('/FB_Incorrect.mp3');
 
   useEffect(() => {
     const fetchDesafios = async () => {
@@ -49,15 +54,23 @@ const Desafios = () => {
 
   const handleRespuesta = () => {
     if (selectedRespuesta === respuestaCorrecta.id) {
-      if (currentDesafioIndex < desafios.length - 1) {
-        setCurrentDesafioIndex(currentDesafioIndex + 1);
-        setSelectedRespuesta(null);
-      } else {
-        // Redirige a la página de Final
-        navigate('/final');
-      }
+      setShowCheckmark(true);
+      correctSound.play(); // Reproduce el sonido correcto
+      setTimeout(() => {
+        setShowCheckmark(false);
+        if (currentDesafioIndex < desafios.length - 1) {
+          setCurrentDesafioIndex(currentDesafioIndex + 1);
+          setSelectedRespuesta(null);
+        } else {
+          navigate('/final');
+        }
+      }, 1000); // Duración de la animación
     } else {
-      alert('Respuesta incorrecta, intenta de nuevo.');
+      setShowRetryMessage(true);
+      incorrectSound.play(); // Reproduce el sonido incorrecto
+      setTimeout(() => {
+        setShowRetryMessage(false);
+      }, 2000); // Duración del mensaje de intento fallido
     }
   };
 
@@ -81,6 +94,13 @@ const Desafios = () => {
         ) : desafios.length > 0 ? (
           <div className="flex flex-col items-center justify-center p-6 border rounded shadow-md mx-4">
             <h2 className="text-xl font-bold mb-4 text-center">{desafios[currentDesafioIndex].pregunta}</h2>
+            {/* Mostrar animación y mensaje entre enunciado e imagen */}
+            <div className="w-full max-w-md mb-4">
+              <div className={`checkmark ${showCheckmark ? 'show-checkmark' : ''}`}></div>
+              <div className={`retry-message ${showRetryMessage ? 'show-retry' : ''}`}>
+                Intenta de nuevo.
+              </div>
+            </div>
             <img
               src={desafios[currentDesafioIndex].foto}
               alt={desafios[currentDesafioIndex].pregunta}

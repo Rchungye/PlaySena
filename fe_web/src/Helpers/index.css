@@ -683,3 +683,64 @@ html, body {
   width: 810px; /* Ajusta el tamaño del logo según sea necesario */
   height: 81px; /* Ajusta el tamaño del logo según sea necesario */
 }
+
+
+
+
+
+/* styles.css */
+
+/* Animación de gancho */
+@keyframes checkmark-animation {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+.checkmark {
+  display: none;
+  width: 50px;
+  height: 50px;
+  border: 4px solid green;
+  border-radius: 50%;
+  position: relative;
+  background-color: transparent;
+  margin: 0 auto;
+}
+
+.checkmark::after {
+  content: '';
+  position: absolute;
+  top: 14px;
+  left: 7px;
+  width: 20px;
+  height: 10px;
+  border: solid green;
+  border-width: 0 0 4px 4px;
+  transform: rotate(45deg);
+}
+
+.show-checkmark {
+  display: block;
+  animation: checkmark-animation 1s forwards;
+}
+
+/* Mensaje de intento fallido */
+.retry-message {
+  display: none;
+  color: red;
+  font-size: 16px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.show-retry {
+  display: block;
+}

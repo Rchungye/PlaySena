@@ -4,7 +4,6 @@ import NavBar from '../NavBar';
 import { useUser } from '../../store/UserContext'; // Ajusta la ruta según tu estructura
 import { actualizarUsuario } from '../../services/Usuario'; // Ajusta la ruta según tu estructura
 import Swal from 'sweetalert2';
-import { Link } from 'react-router-dom';
 import { FaEdit, FaSignOutAlt } from 'react-icons/fa'; // Importar el ícono de editar y cerrar sesión
 
 // Modal component
@@ -38,7 +37,7 @@ const Modal = ({ isOpen, onClose, onSave, userData }) => {
               name="nombre"
               value={formData.nombre}
               onChange={handleChange}
-              className="border rounded p-2 w-full"
+              className="border rounded p-2 w-full bg-[#f1f1f1]" // Color de fondo actualizado
               placeholder="Nombre"
             />
           </div>
@@ -49,7 +48,7 @@ const Modal = ({ isOpen, onClose, onSave, userData }) => {
               name="apellido"
               value={formData.apellido}
               onChange={handleChange}
-              className="border rounded p-2 w-full"
+              className="border rounded p-2 w-full bg-[#f1f1f1]" // Color de fondo actualizado
               placeholder="Apellido"
             />
           </div>
@@ -60,7 +59,7 @@ const Modal = ({ isOpen, onClose, onSave, userData }) => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="border rounded p-2 w-full"
+              className="border rounded p-2 w-full bg-[#f1f1f1]" // Color de fondo actualizado
               placeholder="Correo"
             />
           </div>
@@ -71,7 +70,7 @@ const Modal = ({ isOpen, onClose, onSave, userData }) => {
               name="contra"
               value={formData.contra}
               onChange={handleChange}
-              className="border rounded p-2 w-full"
+              className="border rounded p-2 w-full bg-[#f1f1f1]" // Color de fondo actualizado
               placeholder="Contraseña"
             />
           </div>
