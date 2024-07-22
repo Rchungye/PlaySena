@@ -20,3 +20,10 @@ export const obtenerDesafiosNivel = async (idNivel) => {
         .then(response => response.data)
         .catch(error => Promise.resolve(error.response));
 };
+
+// Actualizar experiencia de un usuario
+export const actualizarExpUsuario = async (idUsuario) => {
+    return ApiService.put(`/exp/${idUsuario}`)
+        .then(response => response.data)
+        .catch(error => Promise.resolve(error.response));
+};
