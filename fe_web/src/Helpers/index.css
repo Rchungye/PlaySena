@@ -26,11 +26,7 @@ a:hover {
   color: #535bf2;
 }
 
-body {
-  margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
-}
+
 
 h1 {
   font-size: 3.2em;
@@ -44,7 +40,7 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #FFD700;
   cursor: pointer;
   transition: border-color 0.25s;
 }
@@ -83,7 +79,7 @@ button:focus-visible {
   }
 
   a:hover {
-    color: #747bff;
+    color: #ffd574;
   }
 
   button {
@@ -109,24 +105,29 @@ body {
 
 /* Ensure the Inter font is applied globally */
 html, body {
-  font-family: 'Inter', sans-serif;
+  height: 100%;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* Container to manage layout */
+.layout-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
 /* Header styles */
 .landing-page-header {
+  height: 80px; /* Fixed height */
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 50; /* Ensure it stays on top */
-  width: 100%;
   background: linear-gradient(90deg, #af52de, #30b0c7);
-  overflow: hidden;
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: flex-start;
+  align-items: center;
   padding: 1rem;
   box-sizing: border-box;
 }
@@ -138,18 +139,18 @@ html, body {
 
 /* Footer styles */
 .landing-page-footer {
+  height: 80px; /* Fixed height */
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 50;
-  width: 100%;
-  background: white;
+  z-index: 50; /* Ensure it stays on top */
+  background: rgb(184, 184, 184);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 1rem;
   box-sizing: border-box;
-  display: flex;
-  justify-content: center; /* Center the content */
-  align-items: center;
 }
 
 .landing-page-footer-content {
@@ -180,6 +181,74 @@ html, body {
 .landing-page-footer-link {
   font-weight: 600;
 }
+/* Navbar styles */
+.navbar {
+  width: 16rem; /* Fixed width */
+  background-color: #3A3B3C; /* Background color */
+  color: #fff; /* Text color */
+  position: fixed;
+  top: 80px; /* Align below the header */
+  bottom: 0px; /* Align above the footer */
+  left: 0;
+  z-index: 40; /* Ensure it stays below the header */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  box-sizing: border-box;
+  overflow-y: auto; /* Allow scrolling if content overflows */
+}
+
+
+/* Button styles */
+.btn {
+  padding: 0.5rem 1rem;
+  background-color: #FFBB3B; /* Button color */
+  color: #fff; /* Text color */
+  border: none;
+  border-radius: 0.375rem; /* Rounded corners */
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #357abd; /* Darker shade on hover */
+}
+
+/* Adjust profile main content to avoid clipping by header, footer, and navbar */
+.profile-main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Center content vertically */
+  padding: 80px 0; /* Top and bottom padding to avoid clipping */
+  margin-left: 16rem; /* Space for navbar */
+  min-height: calc(100vh - 160px); /* Adjust based on header and footer height */
+  box-sizing: border-box;
+}
+
+/* Adjust ranking main content to avoid clipping by header, footer, and navbar */
+.ranking-main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Center content vertically */
+  padding: 80px 0; /* Top and bottom padding to avoid clipping */
+  margin-left: 16rem; /* Space for navbar */
+  min-height: calc(100vh - 160px); /* Adjust based on header and footer height */
+  box-sizing: border-box;
+}
+
+/* Adjust etapas main content to avoid clipping by header, footer, and navbar */
+.etapas-main-content {
+  margin-top: 80px; /* Space for header */
+  margin-left: 16rem; /* Space for navbar */
+  padding-bottom: 80px; /* Space for footer */
+  box-sizing: border-box;
+}
+
+
 
 /* Common page styles */
 .landing-page-login-page {

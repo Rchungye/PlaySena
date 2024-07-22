@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
+import { useUser } from '../store/UserContext'; // Asegúrate de ajustar la ruta al archivo correcto
 
 // rutas de pagina
 import Ranking from '../components/Pages/Ranking';
@@ -27,6 +28,7 @@ import NavBar from '../components/NavBar';
 function GameNavegator() {
   const location = useLocation();
   const hideNavBarRoutes = ["/", "/registro"];
+  const { user } = useUser(); // Obtener la información del usuario desde el contexto
 
   return (
     <div className="flex">

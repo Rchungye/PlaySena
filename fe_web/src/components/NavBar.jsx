@@ -1,57 +1,71 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { FaHome, FaStar, FaSearch, FaUser } from 'react-icons/fa';
+import { useUser } from '../store/UserContext'; // Ajusta la ruta según tu estructura
 
 function NavBar() {
+  const { user } = useUser(); // Obtener la información del usuario desde el contexto
+
   return (
-    <nav className="h-screen w-64 bg-gray-800 text-white flex flex-col items-center space-y-4 p-4 border-r border-gray-200 overflow-y-auto fixed top-0 left-0 scrollbar-hide">
-
+    <nav className="navbar">
       <div className="w-full text-center">
-        <h1 className="text-2xl font-bold mb-4">Jugador</h1>
+        <h1 className="text-2xl font-bold mb-4">
+          {user?.tipo === 1 ? 'Jugador' : 'Administrador'}
+        </h1>
       </div>
-
       <div className="flex flex-col space-y-2 w-full items-center">
-        <Link to={"/etapas"}>
-          <button className="btn">Etapas</button>
+        {/* Opciones comunes */}
+        <Link to="/etapas">
+          <button className="btn flex items-center">
+            <FaHome className="mr-2" /> <span>Etapas</span>
+          </button>
         </Link>
-        <Link to={"/ranking"}>
-          <button className="btn">Clasificación</button>
+        <Link to="/ranking">
+          <button className="btn flex items-center">
+            <FaStar className="mr-2" /> <span>Clasificación</span>
+          </button>
         </Link>
-        <Link to={"/profile"}>
-          <button className="btn">Perfil</button>
+        <Link to="/profile">
+          <button className="btn flex items-center">
+            <FaUser className="mr-2" /> <span>Perfil</span>
+          </button>
         </Link>
-        <Link to={"/help"}>
-          <button className="btn">Ayuda</button>
+        <Link to="/help">
+          <button className="btn flex items-center">
+            <FaSearch className="mr-2" /> <span>Ayuda</span>
+          </button>
         </Link>
-      </div>
 
-      <div className="w-full text-center mt-8">
-        <h1 className="text-2xl font-bold mb-4">Administrador</h1>
+        {/* Opciones administrativas, solo visibles para tipo 2 */}
+        {user?.tipo === 2 && (
+          <>
+            <div className="w-full text-center mt-8">
+              <h1 className="text-2xl font-bold mb-4">Administrador</h1>
+            </div>
+            <Link to="/admin/etapas">
+              <button className="btn">Administrar Etapas</button>
+            </Link>
+            <Link to="/admin/niveles">
+              <button className="btn">Administrar Niveles</button>
+            </Link>
+            <Link to="/admin/lecciones">
+              <button className="btn">Administrar Lecciones</button>
+            </Link>
+            <Link to="/admin/desafios">
+              <button className="btn">Administrar Desafíos</button>
+            </Link>
+            <Link to="/admin/opciones">
+              <button className="btn">Administrar Opciones</button>
+            </Link>
+            <Link to="/admin/users">
+              <button className="btn">Administrar Usuarios</button>
+            </Link>
+            <Link to="/admin/help">
+              <button className="btn">Administrar Ayuda</button>
+            </Link>
+          </>
+        )}
       </div>
-
-      <div className="flex flex-col space-y-2 w-full items-center">
-        <Link to={"/admin/etapas"}>
-          <button className="btn">Administrar Etapas</button>
-        </Link>
-        <Link to={"/admin/niveles"}>
-          <button className="btn">Administrar Niveles</button>
-        </Link>
-        <Link to={"/admin/lecciones"}>
-          <button className="btn">Administrar Lecciones</button>
-        </Link>
-        <Link to={"/admin/desafios"}>
-          <button className="btn">Administrar Desafíos</button>
-        </Link>
-        <Link to={"/admin/opciones"}>
-          <button className="btn">Administrar Opciones</button>
-        </Link>
-        <Link to={"/admin/users"}>
-          <button className="btn">Administrar Usuarios</button>
-        </Link>
-        <Link to={"/admin/help"}>
-          <button className="btn">Administrar Ayuda</button>
-        </Link>
-      </div>
-
       <div className="w-full text-center mt-8">
         <Link to="/">
           <button className="btn">Cerrar Sesión</button>

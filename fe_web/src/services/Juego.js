@@ -16,7 +16,7 @@ export const obtenerEtapasNiveles = async () => {
 
 // Obtener desafíos para un nivel específico
 export const obtenerDesafiosNivel = async (idNivel) => {
-    return ApiService.get(`preguntas/nivel/${idNivel}`)
+    return ApiService.get(`/preguntas/nivel/${idNivel}`)
         .then(response => response.data)
         .catch(error => Promise.resolve(error.response));
 };

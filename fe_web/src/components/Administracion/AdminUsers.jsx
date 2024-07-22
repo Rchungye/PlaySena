@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, IconButton } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, TextField, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import * as usuarioService from '../../services/Usuario'; // Asegúrate de que esta ruta es correcta
+import VisibilityIcon from '@mui/icons-material/Visibility'; // Icono para ver la imagen
 import Swal from 'sweetalert2';
+import * as usuarioService from '../../services/Usuario'; // Asegúrate de que esta ruta es correcta
 
 const AdminUsers = () => {
   const [users, setUsers] = useState([]);
@@ -12,13 +13,18 @@ const AdminUsers = () => {
   const [editMode, setEditMode] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [formData, setFormData] = useState({
+    id: null, // Añade id a formData
     nombre: '',
-    correo: '',
-    contrasena: '',
-    foto: '',
-    experiencia: 0,
-    tipoUsuario: 1
+    apellido: '',
+    email: '',
+    contra: '',
+    fotoPerfil: '',
+    exp: 0,
+    tipo: 1 // Valor por defecto
   });
+
+  const [imageModalOpen, setImageModalOpen] = useState(false);
+  const [imageToShow, setImageToShow] = useState('');
 
   useEffect(() => {
     fetchUsers();
@@ -38,23 +44,27 @@ const AdminUsers = () => {
       setEditMode(true);
       setCurrentUser(user);
       setFormData({
+        id: user.id, // Establece el id aquí
         nombre: user.nombre,
-        correo: user.correo,
-        contrasena: user.contrasena,
-        foto: user.foto,
-        experiencia: user.experiencia,
-        tipoUsuario: user.tipoUsuario
+        apellido: user.apellido,
+        email: user.email,
+        contra: user.contra,
+        fotoPerfil: user.fotoPerfil,
+        exp: user.exp,
+        tipo: user.tipo
       });
     } else {
       setEditMode(false);
       setCurrentUser(null);
       setFormData({
+        id: null, // Resetea el id cuando se crea un nuevo usuario
         nombre: '',
-        correo: '',
-        contrasena: '',
-        foto: '',
-        experiencia: 0,
-        tipoUsuario: 1
+        apellido: '',
+        email: '',
+        contra: '',
+        fotoPerfil: '',
+        exp: 0,
+        tipo: 1 // Valor por defecto
       });
     }
     setDialogOpen(true);
@@ -62,6 +72,7 @@ const AdminUsers = () => {
 
   const handleCloseDialog = () => {
     setDialogOpen(false);
+    setImageModalOpen(false); // Cierra el modal de imagen al cerrar el diálogo
   };
 
   const handleChange = (e) => {
@@ -75,7 +86,7 @@ const AdminUsers = () => {
   const handleSave = async () => {
     try {
       if (editMode) {
-        await usuarioService.actualizarUsuario({ ...currentUser, ...formData });
+        await usuarioService.actualizarUsuario(formData); // Envía formData que incluye el id
       } else {
         await usuarioService.registrarUsuario(formData);
       }
@@ -89,7 +100,7 @@ const AdminUsers = () => {
   const handleDelete = async (id) => {
     Swal.fire({
       title: 'Eliminar Usuario',
-      text: `¿Está seguro que desea eliminar el usuario #${id}?`,
+      text: `¿Está seguro que desea eliminar al usuario #${id}?`,
       showDenyButton: true,
       confirmButtonText: 'Eliminar',
       denyButtonText: 'Cerrar'
@@ -105,14 +116,36 @@ const AdminUsers = () => {
     });
   };
 
+  const handleImageClick = (image) => {
+    setImageToShow(image);
+    setImageModalOpen(true);
+  };
+
   const columns = [
     { field: 'id', headerName: 'ID', width: 100 },
     { field: 'nombre', headerName: 'Nombre', width: 200 },
-    { field: 'correo', headerName: 'Correo', width: 250 },
-    { field: 'contrasena', headerName: 'Contraseña', width: 200 },
-    { field: 'foto', headerName: 'Foto de Perfil', width: 200, renderCell: (params) => <img src={params.value} alt="Foto de perfil" style={{ width: '50px', height: '50px' }} /> },
-    { field: 'experiencia', headerName: 'Experiencia', width: 150 },
-    { field: 'tipoUsuario', headerName: 'Tipo de Usuario', width: 150 },
+    { field: 'apellido', headerName: 'Apellido', width: 200 },
+    { field: 'email', headerName: 'Correo', width: 250 },
+    { field: 'contra', headerName: 'Contraseña', width: 200 },
+    {
+      field: 'fotoPerfil',
+      headerName: 'Foto de Perfil',
+      width: 150,
+      renderCell: (params) => (
+        <IconButton onClick={() => handleImageClick(params.value)}>
+          <VisibilityIcon />
+        </IconButton>
+      )
+    },
+    { field: 'exp', headerName: 'Experiencia', width: 150 },
+    {
+      field: 'tipo',
+      headerName: 'Tipo de Usuario',
+      width: 150,
+      renderCell: (params) => (
+        <span>{params.value === 1 ? 'Jugador' : 'Administrador'}</span>
+      )
+    },
     {
       field: 'acciones',
       headerName: 'Acciones',
@@ -146,47 +179,57 @@ const AdminUsers = () => {
           />
           <TextField
             margin="dense"
+            label="Apellido"
+            name="apellido"
+            value={formData.apellido}
+            onChange={handleChange}
+            fullWidth
+          />
+          <TextField
+            margin="dense"
             label="Correo"
-            name="correo"
-            value={formData.correo}
+            name="email"
+            value={formData.email}
             onChange={handleChange}
             fullWidth
           />
           <TextField
             margin="dense"
             label="Contraseña"
-            name="contrasena"
-            type="password"
-            value={formData.contrasena}
+            name="contra"
+            value={formData.contra}
             onChange={handleChange}
             fullWidth
           />
           <TextField
             margin="dense"
             label="Foto de Perfil"
-            name="foto"
-            value={formData.foto}
+            name="fotoPerfil"
+            value={formData.fotoPerfil}
             onChange={handleChange}
             fullWidth
           />
           <TextField
             margin="dense"
             label="Experiencia"
-            name="experiencia"
+            name="exp"
             type="number"
-            value={formData.experiencia}
+            value={formData.exp}
             onChange={handleChange}
             fullWidth
           />
-          <TextField
-            margin="dense"
-            label="Tipo de Usuario"
-            name="tipoUsuario"
-            type="number"
-            value={formData.tipoUsuario}
-            onChange={handleChange}
-            fullWidth
-          />
+          <FormControl fullWidth margin="dense">
+            <InputLabel>Tipo</InputLabel>
+            <Select
+              name="tipo"
+              value={formData.tipo}
+              onChange={handleChange}
+              label="Tipo"
+            >
+              <MenuItem value={1}>Jugador</MenuItem>
+              <MenuItem value={2}>Administrador</MenuItem>
+            </Select>
+          </FormControl>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDialog} color="primary">
@@ -194,6 +237,18 @@ const AdminUsers = () => {
           </Button>
           <Button onClick={handleSave} color="primary">
             {editMode ? 'Actualizar' : 'Guardar'}
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog open={imageModalOpen} onClose={handleCloseDialog}>
+        <DialogTitle>Foto de Perfil</DialogTitle>
+        <DialogContent>
+          <img src={imageToShow} alt="Foto de perfil" style={{ width: '100%' }} />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDialog} color="primary">
+            Cerrar
           </Button>
         </DialogActions>
       </Dialog>

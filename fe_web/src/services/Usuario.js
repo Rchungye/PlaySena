@@ -16,30 +16,28 @@ export const registrarUsuario = async (usuario) => {
 
 // Actualizar un usuario existente
 export const actualizarUsuario = async (usuario) => {
-  return ApiService.put('/user/actualizar', usuario)
+  return ApiService.put('/users/actualizar', usuario)
     .then(response => response.data)
     .catch(error => Promise.resolve(error.response));
 };
 
 // Eliminar un usuario por ID
 export const eliminarUsuario = async (idUsuario) => {
-  return ApiService.delete(`/user/eliminar/${idUsuario}`)
+  return ApiService.delete(`/users/eliminar/${idUsuario}`)
     .then(response => response.data)
     .catch(error => Promise.resolve(error.response));
 };
 
 // Iniciar sesión de usuario
 export const inicioUsuario = async (correo, contra) => {
-  return ApiService.get('/user/login', {
-    params: { correo, contra }
-  })
+  return ApiService.post('/users/login', { email: correo, contra })
     .then(response => response.data)
     .catch(error => Promise.resolve(error.response));
 };
 
 // Obtener información de un usuario por ID
 export const obtenerUsuario = async (idUsuario) => {
-  return ApiService.get(`/user/obtenerUsuario/${idUsuario}`)
+  return ApiService.get(`/users/obtenerUsuario/${idUsuario}`)
     .then(response => response.data)
     .catch(error => Promise.resolve(error.response));
 };
