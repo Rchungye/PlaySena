@@ -9,8 +9,8 @@ const Header = ({ className = "" }) => {
   const routeNames = {
     "/" : 'Iniciar Sesion',
     "/registro": 'Registrarse',
-    '/ranking': 'Ranking',
-    '/profile': 'Perfil',
+    '/ranking': 'Tabla de Clasificacion',
+    '/profile': 'Mi Perfil',
     '/help': 'Ayuda',
     '/etapas': 'Etapas',
     '/niveles': 'Niveles',

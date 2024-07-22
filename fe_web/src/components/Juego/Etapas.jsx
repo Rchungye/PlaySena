@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { obtenerEtapasNiveles } from '../../services/Juego'; // Ajusta la ruta según tu estructura
 import Header from '../Header';
-import Footer from '../Footer';
+
 import NavBar from '../NavBar';
 
 function Etapas() {
@@ -61,7 +61,7 @@ function Etapas() {
           </div>
         )}
       </main>
-      <Footer className="landing-page-footer" />
+
     </div>
   );
 }

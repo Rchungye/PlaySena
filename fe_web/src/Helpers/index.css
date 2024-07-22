@@ -188,7 +188,7 @@ html, body {
   color: #fff; /* Text color */
   position: fixed;
   top: 80px; /* Align below the header */
-  bottom: 80px; /* Align above the footer */
+  bottom: 0px; /* Align above the footer */
   left: 0;
   z-index: 40; /* Ensure it stays below the header */
   display: flex;

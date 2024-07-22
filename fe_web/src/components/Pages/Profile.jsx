@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../Header';
-import Footer from '../Footer';
 import NavBar from '../NavBar';
-import { obtenerUsuario, actualizarUsuario } from '../../services/Usuario'; // Asegúrate de ajustar la ruta según tu estructura
+import { obtenerUsuario, actualizarUsuario } from '../../services/Usuario'; // Ajusta la ruta según tu estructura
 import Swal from 'sweetalert2';
 
 // Modal component
@@ -98,17 +97,17 @@ const Modal = ({ isOpen, onClose, onSave, userData }) => {
 function Profile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [userData, setUserData] = useState(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        // Aquí debes obtener el ID del usuario de alguna manera, por ejemplo, del contexto
+        // Aquí debes obtener el ID del usuario de alguna manera, por ejemplo, del contexto o del localStorage
         const userId = 1; // Ejemplo: Reemplaza con el ID del usuario actual
         const data = await obtenerUsuario(userId);
         setUserData(data);
       } catch (error) {
         console.error("Error fetching user data", error);
+        Swal.fire("Error", "No se pudo obtener la información del usuario. Inténtalo nuevamente.", "error");
       } finally {
         setLoading(false);
       }
@@ -125,6 +124,7 @@ function Profile() {
       await actualizarUsuario(updatedUserData);
       setUserData(updatedUserData);
       handleCloseModal();
+      Swal.fire("Éxito", "Perfil actualizado correctamente.", "success");
     } catch (error) {
       Swal.fire("Error", "No se pudo actualizar el perfil. Inténtalo nuevamente.", "error");
     }
@@ -169,7 +169,6 @@ function Profile() {
           userData={userData}
         />
       </main>
-      <Footer className="landing-page-footer" />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import Header from "../Header";
 import RegisterForm from "../RegisterForm";
-import Footer from "../Footer";
+
 
 const Registro = () => {
   return (
@@ -12,15 +12,13 @@ const Registro = () => {
             <p className="m-0">Bienvenido a</p>
             <p className="m-0">PlaySeña</p>
           </h1>
-          <h1 className="landing-page-subtitle">
-            Tu Lugar de Aprendizaje
-          </h1>
+          <h1 className="landing-page-subtitle">Tu Lugar de Aprendizaje</h1>
         </section>
         <div className="landing-page-form-container">
           <RegisterForm className="landing-page-login-form" />
         </div>
       </main>
-      <Footer className="landing-page-footer" />
+
     </div>
   );
 };
