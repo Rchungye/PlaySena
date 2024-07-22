@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
-import { inicioUsuario } from "../services/Usuario"; // Asegúrate de ajustar la ruta al archivo correcto
+import { inicioUsuario } from "../services/Usuario"; // Ajusta la ruta al archivo correcto
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { useUser } from "../store/UserContext"; // Importa el hook useUser
 
 const FormLogIn = ({ className = "" }) => {
   const [formData, setFormData] = useState({
@@ -14,6 +15,7 @@ const FormLogIn = ({ className = "" }) => {
   const [showPassword, setShowPassword] = useState(false); // Estado para manejar la visibilidad de la contraseña
 
   const navigate = useNavigate();
+  const { login } = useUser(); // Obtén la función login del contexto
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -33,6 +35,9 @@ const FormLogIn = ({ className = "" }) => {
     try {
       const response = await inicioUsuario(formData.email, formData.contra);
       if (response) {
+        // Guarda la información del usuario en el contexto
+        login(response);
+
         // Redirigir a la página de Etapas si el login es exitoso
         navigate("/etapas");
       } else {

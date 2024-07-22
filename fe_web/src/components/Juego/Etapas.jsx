@@ -1,20 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { obtenerEtapasNiveles } from '../../services/Juego'; // Ajusta la ruta según tu estructura
+import { obtenerEtapas } from '../../services/Juego'; // Asegúrate de que la ruta sea correcta
 import Header from '../Header';
-
 import NavBar from '../NavBar';
 
 function Etapas() {
   const navigate = useNavigate();
   const [etapasData, setEtapasData] = useState([]);
 
-  // Obtener las etapas y niveles desde la API
+  // Obtener las etapas desde la API
   useEffect(() => {
     const fetchEtapas = async () => {
       try {
-        const response = await obtenerEtapasNiveles();
-        setEtapasData(response);
+        const response = await obtenerEtapas();
+        // Verifica si la respuesta es exitosa
+        if (response && response.status === 200) {
+          setEtapasData(response.data);
+        } else {
+          console.error("Error al obtener etapas:", response);
+        }
       } catch (error) {
         console.error("Error al obtener etapas:", error);
       }
@@ -61,7 +65,6 @@ function Etapas() {
           </div>
         )}
       </main>
-
     </div>
   );
 }

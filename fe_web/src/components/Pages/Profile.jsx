@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../Header';
 import NavBar from '../NavBar';
-import { obtenerUsuario, actualizarUsuario } from '../../services/Usuario'; // Ajusta la ruta según tu estructura
+import { useUser } from '../../store/UserContext'; // Ajusta la ruta según tu estructura
+import { actualizarUsuario } from '../../services/Usuario'; // Ajusta la ruta según tu estructura
 import Swal from 'sweetalert2';
 
 // Modal component
@@ -96,25 +97,19 @@ const Modal = ({ isOpen, onClose, onSave, userData }) => {
 
 function Profile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { user, setUser } = useUser(); // Obtener la información del usuario desde el contexto
 
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const userId = 1; // Ejemplo: Reemplaza con el ID del usuario actual
-        const data = await obtenerUsuario(userId);
-        setUserData(data);
-      } catch (error) {
-        setError("No se pudo obtener la información del usuario. Inténtalo nuevamente.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchUser();
-  }, []);
+    if (user) {
+      setLoading(false);
+    } else {
+      setLoading(true);
+      setError("No se pudo obtener la información del usuario.");
+      setLoading(false);
+    }
+  }, [user]);
 
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
@@ -122,7 +117,7 @@ function Profile() {
   const handleSaveChanges = async (updatedUserData) => {
     try {
       await actualizarUsuario(updatedUserData);
-      setUserData(updatedUserData);
+      setUser(updatedUserData); // Actualizar el estado del usuario en el contexto
       handleCloseModal();
       Swal.fire("Éxito", "Perfil actualizado correctamente.", "success");
     } catch (error) {
@@ -146,7 +141,7 @@ function Profile() {
     );
   }
 
-  if (!userData) {
+  if (!user) {
     return (
       <div className="flex items-center justify-center h-screen">
         <h1 className="text-2xl font-bold">Inicie sesión para poder ver su información</h1>
@@ -165,13 +160,13 @@ function Profile() {
 
         <div className="flex flex-col items-center mb-4">
           <img
-            src={userData.fotoPerfil || "https://example.com/default-profile-picture.jpg"}
+            src={user.fotoPerfil || "https://example.com/default-profile-picture.jpg"}
             alt="Foto de Perfil"
             className="w-32 h-32 object-cover rounded-full mb-4"
           />
-          <div className="text-lg font-semibold mb-2">{userData.nombre} {userData.apellido}</div>
-          <div className="text-gray-600 mb-2">{userData.email}</div>
-          <div className="text-gray-600">Experiencia: {userData.exp} XP</div>
+          <div className="text-lg font-semibold mb-2">{user.nombre} {user.apellido}</div>
+          <div className="text-gray-600 mb-2">{user.email}</div>
+          <div className="text-gray-600">Experiencia: {user.exp} XP</div>
         </div>
 
         <div className="flex justify-center">
@@ -182,7 +177,7 @@ function Profile() {
           isOpen={isModalOpen}
           onClose={handleCloseModal}
           onSave={handleSaveChanges}
-          userData={userData}
+          userData={user}
         />
       </main>
     </div>
