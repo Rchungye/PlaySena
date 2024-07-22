@@ -1,7 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaHome, FaStar, FaSearch, FaUser, FaCogs, FaBook, FaQuestion, FaUsers, FaTachometerAlt, FaPlus, FaSignOutAlt } from 'react-icons/fa'; // Importar el ícono de cerrar sesión
+import { FaHome, FaStar, FaSearch, FaUser, FaCogs, FaBook, FaQuestion, FaUsers, FaTachometerAlt, FaPlus } from 'react-icons/fa'; // Importar íconos
 import { useUser } from '../store/UserContext'; // Ajusta la ruta según tu estructura
+
+// Importa el logo
+import logo from '../../src/assets/images/logo.png'; // Ajusta la ruta según tu estructura
 
 function NavBar() {
   const { user } = useUser(); // Obtener la información del usuario desde el contexto
@@ -49,52 +52,55 @@ function NavBar() {
         {user?.tipo === 2 && (
           <>
             <div className="w-full text-center mt-8">
-              <h1 className="text-2xl font-bold mb-4">Administrador</h1>
+              <h1 className="text-2xl font-bold m-4">Opciones de Gestión</h1>
             </div>
             <Link to="/admin/etapas">
               <button className="btn flex items-center">
-                <FaCogs className="mr-2" /> <span>Administrar Etapas</span>
+                <FaCogs className="mr-2" /> <span>Etapas</span>
               </button>
             </Link>
             <Link to="/admin/niveles">
               <button className="btn flex items-center">
-                <FaTachometerAlt className="mr-2" /> <span>Administrar Niveles</span>
+                <FaTachometerAlt className="mr-2" /> <span>Niveles</span>
               </button>
             </Link>
             <Link to="/admin/lecciones">
               <button className="btn flex items-center">
-                <FaBook className="mr-2" /> <span>Administrar Lecciones</span>
+                <FaBook className="mr-2" /> <span>Lecciones</span>
               </button>
             </Link>
             <Link to="/admin/desafios">
               <button className="btn flex items-center">
-                <FaQuestion className="mr-2" /> <span>Administrar Desafíos</span>
+                <FaQuestion className="mr-2" /> <span>Desafíos</span>
               </button>
             </Link>
             <Link to="/admin/opciones">
               <button className="btn flex items-center">
-                <FaPlus className="mr-2" /> <span>Administrar Opciones</span>
+                <FaPlus className="mr-2" /> <span>Opciones</span>
               </button>
             </Link>
             <Link to="/admin/users">
               <button className="btn flex items-center">
-                <FaUsers className="mr-2" /> <span>Administrar Usuarios</span>
+                <FaUsers className="mr-2" /> <span>Usuarios</span>
               </button>
             </Link>
             <Link to="/admin/help">
               <button className="btn flex items-center">
-                <FaQuestion className="mr-2" /> <span>Administrar Ayuda</span>
+                <FaQuestion className="mr-2" /> <span>Ayuda</span>
               </button>
             </Link>
           </>
         )}
       </div>
+      {/* Logo y nombre de la página */}
       <div className="w-full text-center mt-8">
-        <Link to="/">
-          <button className="btn flex items-center">
-            <FaSignOutAlt className="mr-2" /> <span>Cerrar Sesión</span>
-          </button>
-        </Link>
+        <div className="logo-container">
+          <img
+            src={logo}
+            alt="Logo de PlaySeña"
+          />
+        </div>
+        <h1 className="text-xl font-bold">PlaySeña</h1>
       </div>
     </nav>
   );

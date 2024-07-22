@@ -662,3 +662,24 @@ html, body {
   background-color: #6c757d;
   border-color: #6c757d;
 }
+
+
+
+/* Agrega estas reglas a tu archivo CSS o en una clase de estilo en tu componente */
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px; /* Ajusta el tamaño según sea necesario */
+  height: 100px; /* Ajusta el tamaño según sea necesario */
+  background-color: white; /* Color del círculo */
+  border-radius: 50%; /* Hace que el contenedor sea circular */
+  margin: 0 auto; /* Centra el contenedor horizontalmente */
+  box-shadow: 0 0 0 2px #ccc; /* Agrega una sombra si lo deseas */
+}
+
+.logo-container img {
+  width: 810px; /* Ajusta el tamaño del logo según sea necesario */
+  height: 81px; /* Ajusta el tamaño del logo según sea necesario */
+}
