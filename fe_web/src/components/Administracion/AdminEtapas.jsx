@@ -3,14 +3,14 @@ import { DataGrid } from '@mui/x-data-grid';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, TextField } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import VisibilityIcon from '@mui/icons-material/Visibility'; // Icono para ver la imagen
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import Swal from 'sweetalert2';
+import Header from '../Header'; // Import Header component
 
 const AdminEtapas = () => {
   const [etapas, setEtapas] = useState([
     { id: 1, nombre: 'Etapa 1', descripcion: 'Descripción de la Etapa 1', imagen: 'https://example.com/etapa1.jpg' },
     { id: 2, nombre: 'Etapa 2', descripcion: 'Descripción de la Etapa 2', imagen: 'https://example.com/etapa2.jpg' },
-    // Añadir más etapas según sea necesario
   ]);
 
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -117,11 +117,13 @@ const AdminEtapas = () => {
   ];
 
   return (
-    <div>
-      <h1>Administrar Etapas</h1>
-      <Button variant="contained" color="primary" onClick={() => handleOpenDialog()}>Añadir Etapa</Button>
-      <div style={{ height: 600, width: '100%' }}>
-        <DataGrid rows={etapas} columns={columns} pageSize={10} />
+    <div className="admin-etapas-container">
+      <Header />
+      <div className="admin-etapas-content">
+        <Button variant="contained" color="primary" onClick={() => handleOpenDialog()}>Añadir Etapa</Button>
+        <div style={{ height: 600, width: '100%', marginTop: '20px' }}>
+          <DataGrid rows={etapas} columns={columns} pageSize={10} />
+        </div>
       </div>
       <Dialog open={dialogOpen} onClose={handleCloseDialog}>
         <DialogTitle>{editMode ? 'Editar Etapa' : 'Añadir Etapa'}</DialogTitle>

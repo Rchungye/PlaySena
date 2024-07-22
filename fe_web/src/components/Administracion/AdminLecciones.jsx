@@ -4,6 +4,7 @@ import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, I
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Swal from 'sweetalert2';
+import Header from '../Header'; // Import Header component
 
 const AdminLecciones = () => {
   const [lecciones, setLecciones] = useState([
@@ -101,11 +102,13 @@ const AdminLecciones = () => {
   ];
 
   return (
-    <div>
-      <h1>Administrar Lecciones</h1>
-      <Button variant="contained" color="primary" onClick={() => handleOpenDialog()}>Añadir Lección</Button>
-      <div style={{ height: 600, width: '100%' }}>
-        <DataGrid rows={lecciones} columns={columns} pageSize={10} />
+    <div className="admin-lecciones-container">
+      <Header />
+      <div className="admin-lecciones-content">
+        <Button variant="contained" color="primary" onClick={() => handleOpenDialog()}>Añadir Lección</Button>
+        <div style={{ height: 600, width: '100%', marginTop: '20px' }}>
+          <DataGrid rows={lecciones} columns={columns} pageSize={10} />
+        </div>
       </div>
       <Dialog open={dialogOpen} onClose={handleCloseDialog}>
         <DialogTitle>{editMode ? 'Editar Lección' : 'Añadir Lección'}</DialogTitle>

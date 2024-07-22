@@ -4,12 +4,12 @@ import { Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, I
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Swal from 'sweetalert2';
+import Header from '../Header'; // Import Header component
 
 const AdminNiveles = () => {
   const [niveles, setNiveles] = useState([
     { id: 1, nombre: 'Nivel 1', descripcion: 'Descripción del Nivel 1', etapa: 'Etapa 1', experiencia: 100 },
     { id: 2, nombre: 'Nivel 2', descripcion: 'Descripción del Nivel 2', etapa: 'Etapa 2', experiencia: 200 },
-    // Añadir más niveles según sea necesario
   ]);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editMode, setEditMode] = useState(false);
@@ -101,11 +101,13 @@ const AdminNiveles = () => {
   ];
 
   return (
-    <div>
-      <h1>Administrar Niveles</h1>
-      <Button variant="contained" color="primary" onClick={() => handleOpenDialog()}>Añadir Nivel</Button>
-      <div style={{ height: 600, width: '100%' }}>
-        <DataGrid rows={niveles} columns={columns} pageSize={10} />
+    <div className="admin-niveles-container">
+      <Header />
+      <div className="admin-niveles-content">
+        <Button variant="contained" color="primary" onClick={() => handleOpenDialog()}>Añadir Nivel</Button>
+        <div style={{ height: 600, width: '80%', marginTop: '20px' }}>
+          <DataGrid rows={niveles} columns={columns} pageSize={10} />
+        </div>
       </div>
       <Dialog open={dialogOpen} onClose={handleCloseDialog}>
         <DialogTitle>{editMode ? 'Editar Nivel' : 'Añadir Nivel'}</DialogTitle>
