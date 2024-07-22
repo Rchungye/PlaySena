@@ -13,6 +13,7 @@ const AdminUsers = () => {
   const [editMode, setEditMode] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [formData, setFormData] = useState({
+    id: null, // Añade id a formData
     nombre: '',
     apellido: '',
     email: '',
@@ -43,6 +44,7 @@ const AdminUsers = () => {
       setEditMode(true);
       setCurrentUser(user);
       setFormData({
+        id: user.id, // Establece el id aquí
         nombre: user.nombre,
         apellido: user.apellido,
         email: user.email,
@@ -55,6 +57,7 @@ const AdminUsers = () => {
       setEditMode(false);
       setCurrentUser(null);
       setFormData({
+        id: null, // Resetea el id cuando se crea un nuevo usuario
         nombre: '',
         apellido: '',
         email: '',
@@ -83,7 +86,7 @@ const AdminUsers = () => {
   const handleSave = async () => {
     try {
       if (editMode) {
-        await usuarioService.actualizarUsuario({ ...currentUser, ...formData });
+        await usuarioService.actualizarUsuario(formData); // Envía formData que incluye el id
       } else {
         await usuarioService.registrarUsuario(formData);
       }

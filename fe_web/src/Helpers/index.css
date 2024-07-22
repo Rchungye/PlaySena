@@ -40,7 +40,7 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #FFD700;
   cursor: pointer;
   transition: border-color 0.25s;
 }
@@ -79,7 +79,7 @@ button:focus-visible {
   }
 
   a:hover {
-    color: #747bff;
+    color: #ffd574;
   }
 
   button {
@@ -184,7 +184,7 @@ html, body {
 /* Navbar styles */
 .navbar {
   width: 16rem; /* Fixed width */
-  background: #333; /* Background color */
+  background-color: #3A3B3C; /* Background color */
   color: #fff; /* Text color */
   position: fixed;
   top: 80px; /* Align below the header */
@@ -203,7 +203,7 @@ html, body {
 /* Button styles */
 .btn {
   padding: 0.5rem 1rem;
-  background-color: #4a90e2; /* Button color */
+  background-color: #FFBB3B; /* Button color */
   color: #fff; /* Text color */
   border: none;
   border-radius: 0.375rem; /* Rounded corners */
